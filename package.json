@@ -1,0 +1,24 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "Chat Server with AI",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex-ta/Chat-Server.git"
+  },
+  "keywords": [
+    "chat",
+    "ai",
+    "server"
+  ],
+  "author": "alex & casper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alex-ta/Chat-Server/issues"
+  },
+  "homepage": "https://github.com/alex-ta/Chat-Server#readme"
+}
