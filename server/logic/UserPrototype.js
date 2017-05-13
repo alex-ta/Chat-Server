@@ -37,7 +37,7 @@ function UserPrototype (){
   this.disconnect = function(){
     this.emit("disconnect");
   }
-  this.logout = function({
+  this.logout = function(){
     this.emit("logout");
   }
   // Admin
@@ -115,5 +115,7 @@ function UserPrototype (){
     return _favouriteChatRoom;
   }
 }
+// extend on events
 UserPrototype.prototype.__proto__ = events.EventEmitter.prototype;
-module.exports = UserPrototyp;
+// exports userprototype model (no class)
+module.exports = UserPrototype;

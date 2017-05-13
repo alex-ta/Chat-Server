@@ -1,10 +1,9 @@
 "use-strict"
+const util = require('util');
 const UserPrototype = require('./UserPrototype');
 
-function User (){
+function User() {}
 
-
-}
-
-User.prototype.__proto__ = UserPrototype.prototype;
-module.exports = User;
+utils.inherits(User,UserPrototype)
+// export user class
+module.exports = new User();
