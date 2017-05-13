@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/alex-ta/Chat-Server/issues"
   },
-  "homepage": "https://github.com/alex-ta/Chat-Server#readme"
+  "homepage": "https://github.com/alex-ta/Chat-Server#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
 }

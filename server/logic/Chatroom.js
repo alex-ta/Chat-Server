@@ -1,70 +1,69 @@
 "use-strict"
 const events = require('events');
 
-function Chatroom(){
+this.Chatroom(){
   events.EventEmitter.call(this);
 
-  this._chatId;
-  this._userPrototypes;
-  this._name;
-  this._description;
-  this._password;
-  this._limit;
+  let _chatId;
+  let _userPrototypes;
+  let _name;
+  let _description;
+  let _password;
+  let _limit;
 
-  function onCreate(){
+  this.onCreate = function(){
     this.emit("onCreate");
   }
-  function onConnect(){
+  this.onConnect = function(){
     this.emit("onConnect");
   }
-  function onDisconnect(){
+  this.onDisconnect = function(){
     this.emit("onDisconnect");
   }
-  function receive(){
+  this.receive = function(){
     this.emit("receive");
   }
-  function send(){
+  this.send = function(){
     this.emit("send");
   }
-  function onDestroy(){
+  this.onDestroy = function(){
     this.emit("onDestroy");
   }
-  function setChatId(chatId){
+  this.setChatId = function(chatId){
     this.emit("setChatId");
-    this._chatId = chatId;
+    _chatId = chatId;
   }
-  function setName(name){
+  this.setName = function(name){
     this.emit("setName");
-    this._name = name;
+    _name = name;
   }
-  function setDescription(description){
+  this.setDescription = function(description){
     this.emit("setDescription");
-    this._description = description;
+    _description = description;
   }
-  function setPassword(password){
+  this.setPassword = function(password){
     this.emit("setPassword");
-    this._password = password;
+    _password = password;
   }
-  function setLimit(limit){
+  this.setLimit = function(limit){
     this.emit("setLimit");
-    this._limit = limit;
+    _limit = limit;
   }
-  function getId(){
-    return this._chatId;
+  this.getId = function(){
+    return _chatId;
   }
-  function getName(){
-    return this._name;
+  this.getName = function(){
+    return _name;
   }
-  function getDescription(){
-    return this._description;
+  this.getDescription = function(){
+    return _description;
   }
-  function getPassword(){
-    return this._password;
+  this.getPassword = function(){
+    return _password;
   }
-  function getLimit(){
-    return this._limit;
+  this.getLimit = function(){
+    return _limit;
   }
-
 }
 
 

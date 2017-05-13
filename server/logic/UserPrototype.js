@@ -4,126 +4,115 @@ const events = require('events');
 function UserPrototype (){
   // register for events
   events.EventEmitter.call(this);
-  this._userId;
-  this._userName;
-  this._userPassword;
-  this._lastLogin;
-  this._image;
-  this._state;
-  this._firstName;
-  this._lastName;
-  this._birthday;
-  this._description;
-  this._favouriteChatRoom;
+  let _userId;
+  let _userName;
+  let _userPassword;
+  let _lastLogin;
+  let _image;
+  let _state;
+  let _firstName;
+  let _lastName;
+  let _birthday;
+  let _description;
+  let _favouriteChatRoom;
 
-  function login(){
+  this.login = function(){
     this.emit("login");
   }
-  function connect(){
+  this.connect = function(){
     this.emit("connect");
   }
-  function receive(){
+  this.receive = function(){
     this.emit("receive");
   }
-  function send(){
+  this.send = function(){
     this.emit("send");
   }
-  function addFavChatRoom(){
+  this.addFavChatRoom = function(){
     this.emit("addFavChatRoom");
   }
-  function removeFavChatRoom(){
+  this.removeFavChatRoom = function(){
     this.emit("removeFavChatRoom");
   }
-  function disconnect(){
+  this.disconnect = function(){
     this.emit("disconnect");
   }
-  function logout(){
+  this.logout = function({
     this.emit("logout");
   }
   // Admin
-  function createChatRoom(){
+  this.createChatRoom = function(){
       this.emit("createChatRoom");
   }
-  function deleteChatRoom(){
+  this.deleteChatRoom = function(){
       this.emit("deleteChatRoom");
   }
-  // getter & setter create change event
-  function setId (id){
-    this.emit("setId");
-    this._userId = id;
+  // getter & setter
+  this.setId = function(id){
+    _userId = id;
   }
-  function setName(name){
-    this.emit("setName");
-    this._userName = name;
+  this.setName = function(name){
+    _userName = name;
   }
-  function setPassword(pwd){
-    this.emit("setPassword");
-    this._userPassword = pwd;
+  this.setPassword = function(pwd){
+    _userPassword = pwd;
   }
-  function setLastLogin(lastLogin){
-    this.emit("setLastLogin");
-    this._lastLogin = lastLogin;
+  this.setLastLogin = function(lastLogin){
+    _lastLogin = lastLogin;
   }
-  function setImage(image){
-    this.emit("setImage");
-    this._image = image;
+  this.setImage = function(image){
+    _image = image;
   }
-  function setState(state){
-    this.emit("setState");
-    this._state = state;
+  this.setState = function(state){
+    _state = state;
   }
-  function setFirstName(firstName){
-    this.emit("setFirstName");
-    this._firstName = firstName;
+  this.setFirstName = function(firstName){
+    _firstName = firstName;
   }
-  function setLastName(lastName){
-    this.emit("setLastName");
-    this._lastName = lastName;
+  this.setLastName = function(lastName){
+    _lastName = lastName;
   }
-  function setBirthday(birthday){
-    this.emit("setBirthday");
-    this._birthday = birthday;
+  this.setBirthday = function(birthday){
+    _birthday = birthday;
   }
-  function setDescription(description){
-    this.emit("setDescription");
-    this._description = description;
+  this.setDescription = function(description){
+    _description = description;
   }
-  function setFavouriteChatRoom(favouriteChatRoom){
-    this.emit("setFavouriteChatRoom");
-    this._favouriteChatRoom = favouriteChatRoom;
+  this.setFavouriteChatRoom = function(favouriteChatRoom){
+    _favouriteChatRoom = favouriteChatRoom;
   }
-  function getId(){
-    return this._userId;
+  this.getId = function(){
+    return _userId;
   }
-  function getUserName(){
-    return this._userName;
+  this.getUserName = function(){
+    return _userName;
   }
-  function getUserPassword(){
-    return this._userPassword;
+  this.getUserPassword = function(){
+    return _userPassword;
   }
-  function getLastLogin(){
-    return this._lastLogin;
+  this.getLastLogin = function(){
+    return _lastLogin;
   }
-  function getImage(){
-    return this._image;
+  this.getImage = function(){
+    return _image;
   }
-  function getState(){
-    return this._state;
+  this.getState = function(){
+    return _state;
   }
-  function getFirstName(){
-    return this._firstName;
+  this.getFirstName = function(){
+    return _firstName;
   }
-  function getLastName(){
-    return this._lastName;
+  this.getLastName = function(){
+    return _lastName;
   }
-  function getBirthday(){
-    return this._birthday;
+  this.getBirthday = function(){
+    return _birthday;
   }
-  function getDescription(){
-    return this._description;
+  this.getDescription = function(){
+    return _description;
   }
-  function getFavouriteChatRoom(){
-    return this._favouriteChatRoom;
+  this.getFavouriteChatRoom = function(){
+    return _favouriteChatRoom;
   }
 }
 UserPrototype.prototype.__proto__ = events.EventEmitter.prototype;
