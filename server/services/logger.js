@@ -7,10 +7,11 @@ function Logger(){
   let logFile = "";
 
   this.log = function(msg){
+    logMsg = "Logger: "+msg;
     if(!logFile){
-      console.log(msg);
+      console.log(logMsg);
     }else{
-      fs.appendFile(logFile,msg+endOfLine, (err) => {
+      fs.appendFile(logFile,logMsg+endOfLine, (err) => {
         if(err){
           console.log(err);
         }
@@ -19,7 +20,11 @@ function Logger(){
   }
 
   this.setLogFile = function(logFileIn){
-    logFile = logFileIn;
+    if(typeof(logFileIn) == "string"){
+      logFile = logFileIn;
+    } else {
+      this.log("A Logfile should be a string not a " + typeof(logFileIn));
+    }
   }
 
   this.getLogFile = function(){
