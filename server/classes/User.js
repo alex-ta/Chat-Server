@@ -3,9 +3,8 @@ const utils = require('util');
 const UserPrototype = require('./UserPrototype');
 
 class User extends UserPrototype{
-
-  constructor(iosocket) {
-    this.iosocket = iosocket;
+  constructor(socket) {
+    super(socket);
     this.userId;
     this.userName;
     this.userPassword;

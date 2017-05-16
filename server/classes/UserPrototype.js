@@ -9,38 +9,46 @@ class UserPrototype {
     this.socket = socket;
   }
 
-  this.login = function(){
-    this.emit("login");
+  onLogin(){
+    this.emit("onLogin");
   }
-  this.connect = function(){
-    this.emit("connect");
+  onConnect(){
+    this.emit("onConnect");
   }
-  this.receive = function(msg){
-    logger.log(msg);
-    this.emit("receive");
-    this.send(msg);
+  onReceive(msg){
+    this.emit("onReceive",msg);
+    logger.log("onReceive:"+msg);
+    this.onSend(msg);
   }
-  this.send = function(msg){
-    this.emit("send");
-    socket.emit('chat', msg);
+  onSend(msg){
+    this.emit("onSend", msg);
+      if(typeof(msg) == "object"){
+        console.log(this.socket);
+        msg.forEach((msgObj) => {
+          this.socket.emit('chat', msg);
+        });
+      } else {
+        this.socket.emit('chat', msg);
+      }
+      console.log("send");
   }
-  this.addFavChatRoom = function(){
+  addFavChatRoom(){
     this.emit("addFavChatRoom");
   }
-  this.removeFavChatRoom = function(){
+  removeFavChatRoom(){
     this.emit("removeFavChatRoom");
   }
-  this.disconnect = function(){
-    this.emit("disconnect");
+  onDisconnect(){
+    this.emit("onDisconnect");
   }
-  this.logout = function(){
-    this.emit("logout");
+  onLogout(){
+    this.emit("onLogout");
   }
   // Admin
-  this.createChatRoom = function(){
+  createChatRoom(){
       this.emit("createChatRoom");
   }
-  this.deleteChatRoom = function(){
+  deleteChatRoom(){
       this.emit("deleteChatRoom");
   }
 }
