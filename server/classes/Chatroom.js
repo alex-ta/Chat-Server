@@ -1,107 +1,88 @@
 "use-strict"
-const events = require('events');
+const events = require("events");
+const User = require("./User");
+const logger = require("../services/logger");
 
-this.Chatroom(){
+function Chatroom(iosocket){
+  const that = this;
   events.EventEmitter.call(this);
-  // remove private and replace with public
-  // overrice with
-  //Object.defineProperty(Person.prototype, "name", {
-  //  get: function() {
-  //      return this._name ? this._name : "John Doe";
-  //  }
-  //});
+  this.chatId;
+  this.messageHistory = [];
+  this.userPrototypes = [];
+  this.name;
+  this.description;
+  this.iosocket = iosocket;
+  // private public variable
+  this._password;
 
-  let _chatId;
-  let _userPrototypes = [];
-  let _messageHistory = [];
-  let _name;
-  let _description;
-  let _password;
+  const messageHistoryCount = 5;
+  const userPrototypes = [];
 
-  const _messageHistoryCount = 5;
+  iosocket.on('connection', function (socket) {
+    logger.log("connected");
+    that.onConnect(new User(socket));
+    socket.on('chat', this.receive);
+  });
 
   this.onCreate = function(id,name,description,password){
-    this.setId(id);
-    this.setName(name);
-    this.setDescription(description);
-    this.setPassword(password);
+    this.chatId = id;
+    this.name = name;
+    this.description = description;
+    this.password = password;
     this.emit("onCreate");
-    this.sendInfo("Chatroom " + _name +" created");
+    this.sendInfo("Chatroom " + this.name +" created");
   }
   this.onConnect = function(userprototype){
     this.emit("onConnect");
-    _userPrototypes.push(userprototype)
+    console.log(userprototype);
+    this.userPrototypes.push(userprototype);
     userprototype.send("You connected to the Chatroom");
-    length = _messageHistory.length;
-    userprototype.send(_messageHistory.slice(length - _messageHistoryCount, length));
+    length = this.messageHistory.length;
+    userprototype.send(this.messageHistory.slice(length - messageHistoryCount, length));
   }
   this.onDisconnect = function(userprototype){
     this.emit("onDisconnect");
     // remove from prototype
-    index = _userPrototypes.indexOf(userprototype);
+    index = this.userPrototypes.indexOf(userprototype);
     if (index > -1) {
       array.splice(index, 1);
     }
   }
   this.receive = function(msg){
     this.emit("receive");
-    _messageHistory.push(msg);
+    this.messageHistory.push(msg);
     this.send(msg);
   }
   this.send = function(msg){
     this.emit("send");
-    forEach(userPrototype in _userPrototypes){
-      userPrototype.send(msg);
-    }
+    userPrototypes.forEach((userPrototype) => {
+      userPrototype.receive(msg);
+    });
   }
   this.sendInfo = function(msg){
     this.emit("sendInfo");
-    this.send("[Info]" + msg + " << "Date())
+    this.send("[Info]" + msg + " << " + Date())
   }
 
   this.onDestroy = function(){
     this.emit("onDestroy");
-    this.sendInfo("Chatroom " + _name + " destroyed")
-  }
-  this.setChatId = function(chatId){
-    this.emit("setChatId");
-    _chatId = chatId;
-  }
-  this.setName = function(name){
-    this.emit("setName");
-    _name = name;
-  }
-  this.setDescription = function(description){
-    this.emit("setDescription");
-    _description = description;
-  }
-  this.setPassword = function(password){
-    this.emit("setPassword");
-    if(typeof(password) != "string"){
-      password = "";
-    }
-    _password = password;
-  }
-  this.setLimit = function(limit){
-    this.emit("setLimit");
-    _limit = limit;
-  }
-  this.getId = function(){
-    return _chatId;
-  }
-  this.getName = function(){
-    return _name;
-  }
-  this.getDescription = function(){
-    return _description;
-  }
-  this.getPassword = function(){
-    return _password;
-  }
-  this.getLimit = function(){
-    return _limit;
+    this.sendInfo("Chatroom " + this.name + " destroyed")
   }
 }
+
+
+//Override setPassword
+Object.defineProperty(Chatroom.prototype, "password", {
+  set: function(password) {
+          if(!(typeof(password) == "string")){
+            password = "";
+          }
+          this._password = password;
+        },
+  get: function(){
+          return this._password;
+        }
+  });
 
 
 Chatroom.prototype.__proto__ = events.EventEmitter.prototype;

@@ -1,9 +1,11 @@
 "use-strict"
-const util = require('util');
+const utils = require('util');
 const UserPrototype = require('./UserPrototype');
 
-function AI() {}
+function AI(iosocket) {
+  this.iosocket = iosocket;
+}
 
-utils.inherits(User,UserPrototype)
+utils.inherits(AI,User);
 // export user class
-module.exports = new AI();
+module.exports = AI;

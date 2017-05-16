@@ -1,0 +1,16 @@
+Logger: Bind Server on port: 
+Logger: GET /
+Logger: GET /
+Logger: Bind Server on port: 
+Logger: GET /
+Logger: GET /
+Logger: Bind Server on port: 
+Logger: Bind Server on port: 
+Logger: GET /
+Logger: GET /
+Logger: Bind Server on port: 
+Logger: GET /
+Logger: GET /style.css
+Logger: GET /jquery.min.js
+Logger: GET /client.js
+Logger: GET /bot.png

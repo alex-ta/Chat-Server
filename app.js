@@ -1,8 +1,12 @@
 const http = require("http");
 const express = require("express");
 // local modules
-const logger = require("./server/services/logger")
-logger.setLogFile("app.log");
+const logger = require("./server/services/logger");
+const ChatroomCRM = require("./server/classes/ChatroomCRM");
+const io = require('socket.io');
+//logger.setLogFile("app.log");
+
+
 
 const app = express();
 // define middleware
@@ -11,16 +15,26 @@ app.use((req, res, next) => {
   next();
 });
 
-// local variables
-const port = 8080;
 
+app.use(express.static(__dirname + '/public'));
 
-
-app.get("/",(req,res) =>{
-  res.send("hello");
+// wenn der Pfad / aufgerufen wird
+app.get('/', function (req, res) {
+	// so wird die Datei index.html ausgegeben
+	res.sendfile(__dirname + '/public/index.html');
 });
 
+
+// local variables
+const port = 8080;
 const server = http.createServer(app);
+
+
+const iosocket = io.listen(server);
+const chatroomCRM = new ChatroomCRM();
+chatroomCRM.addChatroom("Chatroom Name", "A Chatroom description", "", iosocket);
+
+
 server.listen(8080,() =>{
-  logger.log("Bind Server on port: ",port,()=>{});
+  logger.log("Bind Server on port: " + port,()=>{});
 });

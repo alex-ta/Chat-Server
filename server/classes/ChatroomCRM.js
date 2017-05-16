@@ -4,19 +4,19 @@ const Chatroom = require("./Chatroom");
 let chatroomId = 0;
 
 
-function ChatroomCRM (){
+function ChatroomCRM(){
   events.EventEmitter.call(this);
-  let chatrooms = [];
+  const chatrooms = [];
 
-  this.create = function(){
-    this.emit("create");
+  this.onCreate = function(){
+    this.emit("onCreate");
   }
-  this.addChatroom = function(name, description, password){
-    this.emit("addChatroom");
-    chatroom = new Chatroom();
+  this.addChatroom = function(name, description, password, iosocket){
+    // this.emit("addChatroom");
+    chatroom = new Chatroom(iosocket);
     chatrooms.push(chatroom);
     // manage the id
-    chatroom.create(chatroomId++,name,description,password);
+    chatroom.onCreate(chatroomId++,name,description,password);
   }
   this.deleteChatroom = function(chatroom){
     this.emit("deleteChatroom");
@@ -26,8 +26,8 @@ function ChatroomCRM (){
       array.splice(index, 1);
     }
   }
-  this.destroy = function(){
-    this.emit("destroy");
+  this.onDestroy = function(){
+    this.emit("onDestroy");
   }
   this.getChatrooms = function(){
     return chatrooms;
@@ -35,4 +35,4 @@ function ChatroomCRM (){
 }
 
 Chatroom.prototype.__proto__ = events.EventEmitter.prototype;
-module.exports = new ChatroomCRM();
+module.exports = ChatroomCRM;
