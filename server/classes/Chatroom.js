@@ -2,6 +2,9 @@
 const events = require("events");
 const User = require("./User");
 const logger = require("../services/logger");
+const Message = require("./Message");
+
+logger.setLogFile("logfile");
 
 function Chatroom(iosocket){
   const that = this;
@@ -30,12 +33,12 @@ function Chatroom(iosocket){
     that.description = description;
     that.password = password;
     that.emit("onCreate");
-    that.sendInfo("Chatroom " + that.name +" created");
+    that.sendInfo(new Message("Info","Chatroom " + that.name +" created", new Date()));
   }
   that.onConnect = function(userprototype){
     that.emit("onConnect");
     that.userPrototypes.push(userprototype);
-    userprototype.onReceive("You connected to the Chatroom");
+    userprototype.onReceive(new Message("Info","You connected to the Chatroom", new Date()));
     length = that.messageHistory.length;
     userprototype.onReceive(that.messageHistory.slice(length - messageHistoryCount, length));
   }
@@ -49,9 +52,6 @@ function Chatroom(iosocket){
   }
   that.onReceive = function(msg){
     that.emit("onReceive");
-    msg = msg.name +" : "+msg.text;
-    logger.log(msg);
-    logger.log(that.messageHistory);
     that.messageHistory.push(msg);
     that.onSend(msg);
   }
@@ -63,12 +63,12 @@ function Chatroom(iosocket){
   }
   that.sendInfo = function(msg){
     that.emit("sendInfo");
-    that.onSend("[Info]" + msg + " << " + Date())
+    that.onSend(new Message("Info", msg, new Date()));
   }
 
   that.onDestroy = function(){
     that.emit("onDestroy");
-    that.sendInfo("Chatroom " + that.name + " destroyed")
+    that.sendInfo(new Message("Info", "Chatroom " + that.name + " destroyed", new Date()));
   }
 }
 

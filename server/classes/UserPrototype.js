@@ -1,11 +1,11 @@
 "use-strict"
 const events = require('events');
-const logger = require("../services/logger")
 
 class UserPrototype {
   // register for events
   constructor(socket) {
     events.EventEmitter.call(this);
+    // contains chatrooms(by name) and users
     this.socket = socket;
   }
 
@@ -17,20 +17,17 @@ class UserPrototype {
   }
   onReceive(msg){
     this.emit("onReceive",msg);
-    logger.log("onReceive:"+msg);
     this.onSend(msg);
   }
   onSend(msg){
     this.emit("onSend", msg);
-      if(typeof(msg) == "object"){
-        console.log(this.socket);
+      if(msg.constructor.name == "Array"){
         msg.forEach((msgObj) => {
-          this.socket.emit('chat', msg);
+          this.socket.emit('chat', msgObj);
         });
       } else {
         this.socket.emit('chat', msg);
       }
-      console.log("send");
   }
   addFavChatRoom(){
     this.emit("addFavChatRoom");

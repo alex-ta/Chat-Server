@@ -1,7 +1,9 @@
 "use-strict"
 // require modules
-const fs = require('fs');
-const endOfLine = require('os').EOL
+const util = require("util");
+const fs = require("fs");
+const endOfLine = require("os").EOL
+
 // define logger
 function Logger(){
   let logFile = "";
@@ -30,6 +32,11 @@ function Logger(){
   this.getLogFile = function(){
     return logFile;
   }
+
+  this.logJson = function(obj){
+    this.log(JSON.stringify(util.inspect(obj)));
+  }
+
 }
 
 module.exports = new Logger();

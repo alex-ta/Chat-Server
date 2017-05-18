@@ -1,22 +1,34 @@
+class Message{
+  constructor(username, message, date, info){
+    this.username = username;
+    this.message = message;
+    this.date = date;
+    this.info = info;
+  }
+}
+
 $(document).ready(function(){
     // WebSocket
     var socket = io.connect();
     // neue Nachricht
     socket.on('chat', function (data) {
-        var zeit = new Date(data.zeit);
+        var date = new Date(data.date);
         $('#content').append(
             $('<li></li>').append(
                 // Uhrzeit
                 $('<span>').text('[' +
-                    (zeit.getHours() < 10 ? '0' + zeit.getHours() : zeit.getHours())
+                    (date.getHours() < 10 ? '0' + date.getHours() : date.getHours())
                     + ':' +
-                    (zeit.getMinutes() < 10 ? '0' + zeit.getMinutes() : zeit.getMinutes())
+                    (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
                     + '] '
                 ),
-                // Name
-                $('<b>').text(typeof(data.name) != 'undefined' ? data.name + ': ' : ''),
+                // username
+
+                $('<b>').text(typeof(data.username
+) != 'undefined' ? data.username
+ + ': ' : ''),
                 // Text
-                $('<span>').text(data.text))
+                $('<span>').text(data.message))
         );
         // nach unten scrollen
         $('body').scrollTop($('body')[0].scrollHeight);
@@ -24,10 +36,11 @@ $(document).ready(function(){
     // Nachricht senden
     function senden(){
         // Eingabefelder auslesen
-        var name = $('#name').val();
-        var text = $('#text').val();
+        var username
+ = $('#name').val();
+        var message = $('#text').val();
         // Socket senden
-        socket.emit('chat', { name: name, text: text });
+        socket.emit('chat', new Message(username,message, new Date()));
         // Text-Eingabe leeren
         $('#text').val('');
     }
