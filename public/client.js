@@ -1,9 +1,10 @@
 class Message{
-  constructor(username, message, date, info){
+  constructor(username, message, date, chatroom, info){
     this.username = username;
     this.message = message;
     this.date = date;
     this.info = info;
+    this.chatroom = chatroom;
   }
 }
 
@@ -36,11 +37,10 @@ $(document).ready(function(){
     // Nachricht senden
     function senden(){
         // Eingabefelder auslesen
-        var username
- = $('#name').val();
+        var username = $('#name').val();
         var message = $('#text').val();
         // Socket senden
-        socket.emit('chat', new Message(username,message, new Date()));
+        socket.emit('chat', new Message(username,message, new Date(),"chatroom"));
         // Text-Eingabe leeren
         $('#text').val('');
     }

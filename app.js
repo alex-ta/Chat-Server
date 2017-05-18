@@ -2,8 +2,7 @@ const http = require("http");
 const express = require("express");
 // local modules
 const logger = require("./server/services/logger");
-const ChatroomCRM = require("./server/classes/ChatroomCRM");
-const io = require('socket.io');
+const Chat = require("./server/classes/IOBinding");
 //logger.setLogFile("app.log");
 
 
@@ -28,12 +27,8 @@ app.get('/', function (req, res) {
 // local variables
 const port = 8080;
 const server = http.createServer(app);
-
-
-const iosocket = io.listen(server);
-const chatroomCRM = new ChatroomCRM();
-chatroomCRM.addChatroom("Chatroom Name", "A Chatroom description", "", iosocket);
-
+const chat = new Chat(server);
+//logger.log(chat);
 
 server.listen(8080,() =>{
   logger.log("Bind Server on port: " + port,()=>{});

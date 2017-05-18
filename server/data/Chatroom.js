@@ -5,12 +5,12 @@ const Message = require("./Message");
 const messageHistoryCount = 5;
 let chatCounter = 0;
 
-class Chatroom(){
-  constuctor(name, description){
+class Chatroom{
+  constructor(name, description){
     this.chatId = chatCounter++;
-    this.messageHistory = [];
+    this.history = [];
     this.name = name;
-    this.description description;
+    this.description = description;
     // private public variable
     this._password;
   }

@@ -1,5 +1,5 @@
 "use-strict"
-const utils = require('util');
+
 const User = require('./User');
 
 class AI extends User{
