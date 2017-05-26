@@ -8,7 +8,6 @@ function Mapping(rootUrl){
   const _rootUrl = rootUrl;
   const db = "";
 
-
   append = function(app, clazz){
     basicUrl = _rootUrl + "/" + className + "/";
     concreteUrl = basicUrl + ":id";

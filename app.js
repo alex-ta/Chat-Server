@@ -1,10 +1,9 @@
 const http = require("http");
 const express = require("express");
 // local modules
-const logger = require("./server/services/logger");
-const Chat = require("./server/classes/IOBinding");
+const logger = require("./src/server/services/logger");
+const Chat = require("./src/server/classes/IOBinding");
 //logger.setLogFile("app.log");
-
 
 
 const app = express();

@@ -5,15 +5,17 @@ const fs = require("fs");
 const endOfLine = require("os").EOL
 
 // define logger
-function Logger(){
-  let logFile = "";
+class Logger{
+  constructor(){
+    this.logFile = "";
+  }
 
-  this.log = function(msg){
-    logMsg = "Logger: "+msg;
-    if(!logFile){
-      console.log(logMsg);
+  log(msg){
+    this.logMsg = "Logger: "+msg;
+    if(!this.logFile){
+      console.log(this.logMsg);
     }else{
-      fs.appendFile(logFile,logMsg+endOfLine, (err) => {
+      fs.appendFile(this.logFile,this.logMsg+endOfLine, (err) => {
         if(err){
           console.log(err);
         }
@@ -21,22 +23,21 @@ function Logger(){
     }
   }
 
-  this.setLogFile = function(logFileIn){
+  setLogFile(logFileIn){
     if(typeof(logFileIn) == "string"){
-      logFile = logFileIn;
+      this.logFile = logFileIn;
     } else {
       this.log("A Logfile should be a string not a " + typeof(logFileIn));
     }
   }
 
-  this.getLogFile = function(){
-    return logFile;
+  getLogFile(){
+    return this.logFile;
   }
 
-  this.logJson = function(obj){
+  logJson(obj){
     this.log(JSON.stringify(util.inspect(obj)));
   }
-
 }
 
 module.exports = new Logger();

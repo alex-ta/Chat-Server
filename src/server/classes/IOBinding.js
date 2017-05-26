@@ -2,13 +2,13 @@
 
 const Binding = require('./Binding');
 const IOUserBinding = require("./IOUserBinding");
-const User = require("../data/User");
-const Chatroom = require("../data/Chatroom");
+const User = require("../data/userSchema");
+const Chatroom = require("../data/ChatroomSchema");
 const system = require("./SystemMessenger");
 const db = "";
 const limit = 5;
 
-let chatroom = new Chatroom("chatroom","");
+let chatroom = new Chatroom({name:"chatroom"});
 
 class IOBinding extends Binding{
   constructor(server){
