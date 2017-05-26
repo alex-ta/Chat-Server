@@ -3,6 +3,7 @@
 const util = require("util");
 const fs = require("fs");
 const endOfLine = require("os").EOL
+const logFolder = "logs/"
 
 // define logger
 class Logger{
@@ -25,7 +26,7 @@ class Logger{
 
   setLogFile(logFileIn){
     if(typeof(logFileIn) == "string"){
-      this.logFile = logFileIn;
+      this.logFile = this.logFolder + logFileIn;
     } else {
       this.log("A Logfile should be a string not a " + typeof(logFileIn));
     }

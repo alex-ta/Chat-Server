@@ -5,6 +5,16 @@ This Webserver creates an NodeJS Backend and surfes a Chat ui and differend Chat
 It contains normal Users and AI Users
 
 ### Setup
+(Install NodeJS 6.1)[https://nodejs.org/en/download/]
+(Install NPM 3.1)[https://nodejs.org/en/download/]
+(Install MongoDB 3.4.4)[https://www.mongodb.com/download-center?jmp=nav]
+(start mongod)[https://stackoverflow.com/questions/20796714/how-do-i-start-mongo-db-from-windows]
+
+change to app root folder and run:
+
+- npm install
+- npm start
+
 
 ### Folder Structure
 
@@ -23,7 +33,6 @@ It contains normal Users and AI Users
 * Variable order:
   1. variable as const
   2. variable as let
-
 
 #### Used Modules
 Node modules

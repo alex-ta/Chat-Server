@@ -1,10 +1,9 @@
 "use-strict"
-const tungus = require('tungus');
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 const Schema = mongoose.Schema;
 
-const connection = mongoose.createConnection("tingodb:///databaselocal");
+const connection = mongoose.createConnection("mongodb://localhost/myDatabase");
 
 // create a schema
 const userSchema = new Schema({
