@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 const Schema = mongoose.Schema;
 
-const connection = mongoose.createConnection("mongodb://localhost/myDatabase");
+const connection = mongoose.createConnection(global.g_databaseUrl);
 autoIncrement.initialize(connection);
 // create a schema
 const chatroomSchema = new Schema({

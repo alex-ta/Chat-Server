@@ -1,5 +1,5 @@
 const Binding = require("./Binding");
-const Chatroom = require("../data/ChatroomSchema");
+const Chatroom = require("../data/Dataschemas").Chatroom;
 
 class IOUserBinding extends Binding{
   constructor(socket){

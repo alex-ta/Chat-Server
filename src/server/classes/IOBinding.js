@@ -2,8 +2,8 @@
 
 const Binding = require('./Binding');
 const IOUserBinding = require("./IOUserBinding");
-const User = require("../data/userSchema");
-const Chatroom = require("../data/ChatroomSchema");
+const User = require("../data/Dataschemas").User;
+const Chatroom = require("../data/Dataschemas").Chatroom;
 const system = require("./SystemMessenger");
 const db = "";
 const limit = 5;
