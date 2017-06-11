@@ -1,0 +1,9 @@
+.card-container{
+	max-width: 350px;
+	padding: 40px 40px;
+	margin: auto;
+}
+.App-logo{
+	padding-left:70px;
+	padding-right:70px;
+}
