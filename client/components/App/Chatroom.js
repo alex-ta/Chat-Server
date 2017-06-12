@@ -9,7 +9,7 @@ class Chatroom extends Component {
   constructor(props) {
 	super(props);
 	this.state = {
-		username: this.props.auth.user,
+		user: this.props.auth.user,
 		message: '',
 		chatHist: [],
 		mapDate: this.mapDate,
@@ -33,8 +33,8 @@ class Chatroom extends Component {
 	e.preventDefault();
 	const socket = this.state.socket;
 	const data = {};
-	console.log(this.props.auth);
-	data.username = this.username;
+	data.username = this.state.user.username;
+	console.log(data);
 	data.message = this.state.message;
 	data.date = new Date();
 	data.chatroom = "chatroom";

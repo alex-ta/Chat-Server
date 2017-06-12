@@ -73,12 +73,11 @@ const init = function(app){
 			// if one user exists check if the password is correct
 			if (user.length == 1) {
 			  if (bcrypt.compareSync(password, user[0].get('password'))) {
-				// create token
+				// create token with data
 				const token = jwt.sign({
-				  id: user._id,
-				  username: user.username
+				  id: user[0]._id,
+				  username: user[0].username
 				}, config.jwtSecret);
-				// send token
 				res.json({ token });
 				} else {
 					// wrong password

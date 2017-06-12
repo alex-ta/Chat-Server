@@ -1,5 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import config from '../../server/config';
 import { SET_CURRENT_USER } from './types';
 
 
@@ -24,7 +25,7 @@ export function login(data) {
       const token = res.data.token;
       localStorage.setItem('jwtToken', token);
       setToken(token);
-      dispatch(setCurrentUser(data.username));//jwtDecode(token)));
+      dispatch(setCurrentUser(jwtDecode(token)));
     });
   }
 }
