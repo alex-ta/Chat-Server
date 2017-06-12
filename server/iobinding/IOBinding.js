@@ -5,10 +5,11 @@ const IOUserBinding = require("./IOUserBinding");
 const User = require("../models/Dataschemas").User;
 const Chatroom = require("../models/Dataschemas").Chatroom;
 const system = require("../system/SystemMessenger");
+const logger = require("../system/Logger");
 const db = "";
 const limit = 5;
 
-let chatroom = new Chatroom({name:"chatroom"});
+const chatroom = new Chatroom({name:"chatroom"});
 
 class IOBinding extends Binding{
   constructor(server){
@@ -17,24 +18,30 @@ class IOBinding extends Binding{
     this.users = [];
     this.chatrooms = [];
 
-    const that = this;
-    console.log("setting up SocketIO");
-    that.io.sockets.on('connection', function (socket) {
-      that.socket = socket;
-      console.log("connect");
+	const that = this;
+    this.io.sockets.on('connection', function (socket) {
       // if a new user connects
       that.connect(socket);
       // if a message gets send
-    	socket.on('chat', function (data) {
-        that.send(data);
-        });
+	  socket.on('chat', function (data) {
+		that.send(data,socket.handshake.query.username);
+	  });
     });
   }
 
 
-  send(data){
-    this.io.sockets.in(data.chatroom).emit('chat', data);
-    chatroom.history.push(data);
+  send(data, username){
+	const that = this;
+	Chatroom.find({name:data.chatroom}, function(err, room) {
+		if (data.username != username){
+			logger.log("someone messed with his username: old->" + username + " now->" + data.username);
+		}else if (err || room.length < 1){
+		  logger.log("Unavailiable Chatroom call: " + data.chatroom + " from " + username);
+		} else {
+		  room.history.push(data);
+		  that.io.sockets.in(data.chatroom).emit('chat', data);
+		}
+      });
   }
 
   connectChatroom(room,user){
@@ -48,25 +55,35 @@ class IOBinding extends Binding{
   }
 
   connect(socket){
-    const binding = new IOUserBinding(socket);
-    //username = socket.username
-    //user = db.findById(id);
-    let user = new User();
-    user.binding = binding;
-    this.users.push(user);
-    user.binding.send(system.connected);
-    user.binding.join(chatroom);
-    this.connectChatroom(chatroom,user);
+    const username = socket.handshake.query.username;
+	const that = this;
+	const user = User.find({username:username}, function(err, user){	
+		if (err || user.length < 1){
+			logger.log("[connect] unkown user call: " + username);
+		} else {
+			user.binding = new IOUserBinding(socket);
+			that.users.push(user);
+			user.binding.send(system.connected);
+			user.binding.join(chatroom);
+			that.connectChatroom(chatroom,user);
+		}
+	});
   }
 
   disconnect(socket){
-      //username = socket.username
-      //user = db.findById(id);
-      let user = new User();
-      const index = this.users.indexOf(user);
-      if(index)
-        this.users.splice(index,1);
-      user.binding.send(system.disconnected);
+    const username = socket.handshake.query.username;
+	const that = this;
+	const user = User.find({username:username}, function(err, user){	
+		if (err || room.length < 1){
+			logger.log("[disconnect] unkown user call: " + username);
+		} else {
+			const index = that.users.indexOf(user);
+			if(index){
+				that.users.splice(index,1);
+				user.binding.send(system.disconnected);
+			}
+		}
+	});
   }
 }
 

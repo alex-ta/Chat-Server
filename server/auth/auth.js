@@ -76,7 +76,8 @@ const init = function(app){
 				// create token with data
 				const token = jwt.sign({
 				  id: user[0]._id,
-				  username: user[0].username
+				  username: user[0].username,
+				  image: user[0].image
 				}, config.jwtSecret);
 				res.json({ token });
 				} else {

@@ -16,7 +16,7 @@ import Schemas from "./models/Dataschemas";
 import Controller from "./api/Controller";
 
 const userController = new Controller("/auth/", "user/", Schemas.User);
-
+const roomController = new Controller("/auth/", "chatroom/", Schemas.Chatroom);
 
 const config  = require('./config');
 const auth = require('./auth/auth');
@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 auth.init(app);
 
 userController.append(app);
-
+roomController.append(app);
 
 
 // compile code with webpack
@@ -67,6 +67,6 @@ const server = http.createServer(app);
 const chat = new Chat(server);
 //logger.log(chat);
 
-server.listen(3000,() =>{
+server.listen(port,() =>{
   logger.log("Bind Server on port: " + port,()=>{});
 });

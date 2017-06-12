@@ -13,8 +13,11 @@ class Chatroom extends Component {
 		message: '',
 		chatHist: [],
 		mapDate: this.mapDate,
-		socket: this.props.socket
+		socket: this.props.socket,
+		roomName: this.props.roomName
 	}
+	console.log("props");
+	console.log(this.state.roomName);
     this.onSend = this.onSend.bind(this);
 	this.onChange = this.onChange.bind(this);
   }
@@ -34,10 +37,12 @@ class Chatroom extends Component {
 	const socket = this.state.socket;
 	const data = {};
 	data.username = this.state.user.username;
-	console.log(data);
 	data.message = this.state.message;
 	data.date = new Date();
-	data.chatroom = "chatroom";
+	//data.chatroom = this.state.roomName;
+	// wrong chatroom misses 
+	data.chatroom = "chat1";
+	console.log(data);
 	socket.emit('chat', data);
   }
   
@@ -49,7 +54,6 @@ class Chatroom extends Component {
 		});
       });
   }
-
 	
   render() {
 	  const props = this.props;
@@ -73,7 +77,8 @@ class Chatroom extends Component {
 }
 
 Chatroom.PropTypes = {
-  socket: PropTypes.object.isRequired
+  socket: PropTypes.object.isRequired,
+  roomName: PropTypes.string.isRequired
 }
 
 Chatroom.contextTypes = {

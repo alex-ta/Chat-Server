@@ -23,3 +23,40 @@ export function exists(e, form) {
   }
 }
 
+export function post(url, data) {
+  return dispatch => {
+	console.log(data);
+    return axios.post('/auth' + url, data);
+  }
+}
+
+
+export function get(url, id) {
+  return dispatch => {
+	console.log(id);
+    return axios.get(`/auth${url}:${id}`);
+  }
+}
+
+export function getAll(url) {
+  return dispatch => {
+	console.log("get all");
+    return axios.get(`/auth${url}`);
+  }
+}
+
+
+export function del(url, id) {
+  return dispatch => {
+	console.log(id);
+    return axios.delete(`/auth${url}:${id}`);
+  }
+}
+
+
+export function put(user, id, data) {
+  return dispatch => {
+	console.log(data + id);
+    return axios.put(`/auth${url}:${id}`, data);
+  }
+}

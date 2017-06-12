@@ -21,53 +21,58 @@ class Controller{
     // show all
     app.get(this.basicUrl, (req,res) => {
       this.clazz.find({}, function(err, obj) {
-        console.log("returning")
+		console.log(obj)
         if (err)
           res.send(err);
         res.json(obj);
       });
     });
-
-    logger.log(this.basicUrl);
+    logger.log("[GET] " + this.basicUrl);
     // show by id
     app.get(this.idUrl, (req,res) => {
-      this.clazz.findById(req.params.id, function(err, obj) {
-        if (err)
-          res.send(err);
-        res.json(obj);
-      });
+      console.log(req.params.id)
+	  console.log(this.clazz.path)
+	  if(req.params.id == undefined){
+		res.json("");
+	  } else {
+		  this.clazz.findById(req.params.id, function(err, obj) {
+			if (err)
+			  res.json(err);
+			res.json(obj);
+		  });
+	  }
     });
-    logger.log(this.idUrl);
+    logger.log("[GET]" + this.idUrl);
     // create
     app.post(this.basicUrl, (req,res) => {
       var object = new this.clazz(req.body);
       object.save(function(err, object) {
         if (err)
-          res.send(err);
+          res.json(err);
         res.json(object);
       });
     });
-    logger.log(this.basicUrl);
+    logger.log("[POST]" + this.basicUrl);
     // delete
     app.delete(this.idUrl, (req,res) => {
       this.clazz.remove({
         _id: req.params.taskId
       }, function(err, task) {
         if (err)
-          res.send(err);
+          res.json(err);
         res.json({ message: this.className + ' deleted' });
       });
     });
-    logger.log(this.idUrl);
+    logger.log("[DELETE]" + this.idUrl);
     // update
     app.put(this.idUrl, (req,res) => {
       this.clazz.findOneAndUpdate(req.params.id, req.body, {new: true}, function(err, obj) {
          if (err)
-           res.send(err);
+           res.json(err);
          res.json(obj);
       });
     });
-    logger.log(this.idUrl);
+    logger.log("[PUT]" + this.idUrl);
   }
 }
 

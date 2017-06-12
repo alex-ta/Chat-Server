@@ -16,7 +16,6 @@ const chatroomSchema = new Schema({
 
 
 chatroomSchema.plugin(autoIncrement.plugin, 'Chatroom');
-// the schema is useless so far
 const Chatroom = mongoose.model('Chatroom', chatroomSchema);
 // make this available to our users in our Node applications
 module.exports = Chatroom;
