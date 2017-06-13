@@ -7,9 +7,6 @@ const logger = require("../system/Logger")
 class Controller{
 
   constructor(rootUrl, className, clazz){
-    logger.log(rootUrl);
-    logger.log(className);
-    logger.log(clazz);
     this.rootUrl = rootUrl;
     this.className = className;
     this.clazz = clazz;
@@ -21,24 +18,33 @@ class Controller{
     // show all
     app.get(this.basicUrl, (req,res) => {
       this.clazz.find({}, function(err, obj) {
-		console.log(obj)
-        if (err)
+        if (err) {
           res.send(err);
-        res.json(obj);
+		} else {
+		  res.json(obj);
+		}
       });
     });
     logger.log("[GET] " + this.basicUrl);
     // show by id
     app.get(this.idUrl, (req,res) => {
-      console.log(req.params.id)
-	  console.log(this.clazz.path)
-	  if(req.params.id == undefined){
-		res.json("");
+	  if(req.params.id == "undefined"){
+		const required = [];  
+		const attributes = this.clazz.schema.obj;
+		Object.keys(attributes).forEach((key)=>{
+			// print just required attributes
+			if(typeof(attributes[key]) == "object"){
+				required.push(key);
+			}
+		});
+		res.json(required);
 	  } else {
 		  this.clazz.findById(req.params.id, function(err, obj) {
-			if (err)
-			  res.json(err);
-			res.json(obj);
+			if (err) {
+			  res.send(err);
+			} else {
+			  res.json(obj);
+			}
 		  });
 	  }
     });
@@ -46,30 +52,36 @@ class Controller{
     // create
     app.post(this.basicUrl, (req,res) => {
       var object = new this.clazz(req.body);
-      object.save(function(err, object) {
-        if (err)
-          res.json(err);
-        res.json(object);
+      object.save(function(err, obj) {
+        if (err) {
+          res.send(err);
+		} else {
+		  res.json(obj);
+		}
       });
     });
     logger.log("[POST]" + this.basicUrl);
     // delete
     app.delete(this.idUrl, (req,res) => {
       this.clazz.remove({
-        _id: req.params.taskId
+        _id: req.params.id
       }, function(err, task) {
-        if (err)
-          res.json(err);
-        res.json({ message: this.className + ' deleted' });
+        if (err) {
+          res.send(err);
+		} else {
+		  res.json({ message: this.className + ' deleted' });
+		}
       });
     });
     logger.log("[DELETE]" + this.idUrl);
     // update
     app.put(this.idUrl, (req,res) => {
       this.clazz.findOneAndUpdate(req.params.id, req.body, {new: true}, function(err, obj) {
-         if (err)
-           res.json(err);
-         res.json(obj);
+        if (err) {
+          res.send(err);
+		} else {
+		  res.json(obj);
+		}
       });
     });
     logger.log("[PUT]" + this.idUrl);

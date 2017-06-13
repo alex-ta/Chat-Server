@@ -9,8 +9,6 @@ const logger = require("../system/Logger");
 const db = "";
 const limit = 5;
 
-const chatroom = new Chatroom({name:"chatroom"});
-
 class IOBinding extends Binding{
   constructor(server){
     super();
@@ -38,14 +36,16 @@ class IOBinding extends Binding{
 		}else if (err || room.length < 1){
 		  logger.log("Unavailiable Chatroom call: " + data.chatroom + " from " + username);
 		} else {
-		  room.history.push(data);
+		  room[0].history.push(data);
+		  console.log(data);
 		  that.io.sockets.in(data.chatroom).emit('chat', data);
 		}
       });
   }
 
   connectChatroom(room,user){
-    const length = room.history.length
+    console.log(room);
+	const length = room.history.length
     user.binding.send(room.history.slice(length-limit, length));
     //user.binding.send(system.connected);
   }
@@ -64,8 +64,12 @@ class IOBinding extends Binding{
 			user.binding = new IOUserBinding(socket);
 			that.users.push(user);
 			user.binding.send(system.connected);
-			user.binding.join(chatroom);
-			that.connectChatroom(chatroom,user);
+			Chatroom.find({}, function(err, rooms) {
+				rooms.forEach((room)=>{							
+					user.binding.join(room);
+					that.connectChatroom(room,user);
+				});
+			});
 		}
 	});
   }

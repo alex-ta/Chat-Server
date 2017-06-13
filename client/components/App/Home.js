@@ -4,18 +4,28 @@ import { connect } from 'react-redux';
 import Chatroom from './Chatroom';
 import PropTypes from 'prop-types';
 
+import { getAll } from '../../actions/formActions';
+
 class Home extends Component {
   
   constructor(props) {
 	super(props);
-	const chatrooms = ["Room_1","Room_2","Room_3"];
 	
 	this.state = {
       socket: {},
 	  user: this.props.auth.user,
-	  chatrooms: chatrooms,
-	  chatroom: chatrooms[0]
+	  chatrooms: [],
+	  chatroom: ""
 	};
+	
+	this.props.getAll("chatroom").then((res) => {
+	  const chatrooms = [];
+	  res.data.forEach((room)=>{
+		  chatrooms.push(room.name);
+	  });
+	  this.setState({"chatrooms":chatrooms});
+	});
+	
 	this.onClick = this.onClick.bind(this);
   }
 
@@ -33,10 +43,13 @@ class Home extends Component {
   render() {
 	  const state = this.state;
 	  const onClick = this.onClick;
+	  const room = state.chatroom;
 	  return (
 		<div className="chatcontainer row">
 			<div className="col-sm-8 col-md-9 sidebar">
-				<Chatroom socket={state.socket} roomName="chatroom" ></Chatroom>
+			{
+				room ? <Chatroom socket={state.socket} roomName={room} ></Chatroom> : <p>Select a Chat </p>
+			}
 			</div>
 			<div className="col-sm-4 col-md-3 sidebar">
 				<div className="list-group">
@@ -48,6 +61,7 @@ class Home extends Component {
 					</span>
 					{
 						state.chatrooms.map((roomName, count) => {
+							console.log(roomName);
 							return (
 							<button onClick={onClick} name={roomName} id={roomName} key={count} className="list-group-item">
 								{roomName}
@@ -71,5 +85,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { })(Home);
+export default connect(mapStateToProps, { getAll })(Home);
 

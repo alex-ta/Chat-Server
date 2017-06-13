@@ -22,10 +22,18 @@ class Chatroom extends Component {
 	this.onChange = this.onChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps){
+	  if(this.state.roomName != nextProps.rootName){
+		this.state.chatHist = [];
+		this.setState({"roomName":nextProps.roomName});
+	  }
+  }
+  
+  
   mapDate(date){
 	return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
   }
-  
+
   
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -39,9 +47,9 @@ class Chatroom extends Component {
 	data.username = this.state.user.username;
 	data.message = this.state.message;
 	data.date = new Date();
-	//data.chatroom = this.state.roomName;
+	data.chatroom = this.state.roomName;
 	// wrong chatroom misses 
-	data.chatroom = "chat1";
+	//data.chatroom = "new room";
 	console.log(data);
 	socket.emit('chat', data);
   }

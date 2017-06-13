@@ -10,7 +10,7 @@ autoIncrement.initialize(connection);
 const chatroomSchema = new Schema({
   history: Array,
   name: {type: String, required: true},
-  description: String,
+  description: {type: String, required:true},
   password: String
 });
 

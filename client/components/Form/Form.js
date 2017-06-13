@@ -62,6 +62,7 @@ class Form extends React.Component {
 	this.state.fields.forEach((key) => {
 		formdata[key] = this.state[key];
 	});
+	console.log(this.state);
 	
     const { errors, isValid } = valid.val(formdata);	
     if (isValid) {
@@ -103,6 +104,7 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
+	fields: PropTypes.array.isRequired,
 	buttonText: PropTypes.string.isRequired,
 	successRedirect: PropTypes.string,
 	blurdata: PropTypes.object,
