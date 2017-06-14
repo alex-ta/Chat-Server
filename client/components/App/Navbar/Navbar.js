@@ -17,11 +17,17 @@ class Navbar extends React.Component {
 	const { isAuthenticated } = this.props.auth;
 	
 	const userLinks = (
-		<ul className="nav navbar-nav navbar-right"> 
-			<li>
-				<Link to="" onClick={this.logout.bind(this)}>Logout</Link>
-			</li>
-		</ul>
+		<div>
+			<ul className="nav navbar-nav navbar-default"> 
+				<NavLink to="/"> Home </NavLink>
+				<NavLink to="/api"> Chatrooms </NavLink>
+			</ul>
+			<ul className="nav navbar-nav navbar-right"> 
+				<li>
+					<Link to="" onClick={this.logout.bind(this)}>Logout</Link>
+				</li>
+			</ul>
+		</div>
 	);
 
 	const guestLinks = (

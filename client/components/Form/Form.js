@@ -18,15 +18,25 @@ class Form extends React.Component {
 	  fields: props.fields,
 	  buttonText: props.buttonText,
 	  successRedirect: props.successRedirect,
+	  successFunction: props.successFunction,
 	  signFunction: props.signFunction,
       blurdata: {},
 	  errors: {}
     }
-	
+	this.init(props);
+  }
+  
+  init(props){
 	if(!this.state.successRedirect){
 		this.state.successRedirect = "";
 	}
-	
+	if(!this.state.successFunction){
+		const that = this;
+		// move out of this class
+		this.state.successFunction = function(){
+			that.context.router.push(that.state.successRedirect);
+		};
+	}
 	// add blur function for every field passed	
 	Object.keys(props.blurdata).forEach((field) => {
 		this.state.blurdata[field] = this.handelBlur;
@@ -39,7 +49,7 @@ class Form extends React.Component {
 		} else {
 			this.state[field] = "";
 		}
-	});
+	});  
   }
   
   handelChange(e) {
@@ -55,20 +65,33 @@ class Form extends React.Component {
 	}
   }
   
+  componentWillReceiveProps(nextProps){
+	  console.log(nextProps);
+	  this.setState({
+	  	  fields: nextProps.fields,
+		  buttonText: nextProps.buttonText,
+		  successRedirect: nextProps.successRedirect,
+		  successFunction: nextProps.successFunction,
+		  signFunction: nextProps.signFunction,
+	  })
+	  this.init(nextProps);
+  }
+  
+  
   handelSubmit(e) {
 	e.preventDefault();
+	
 	// map data to form
 	const formdata = {};
 	this.state.fields.forEach((key) => {
 		formdata[key] = this.state[key];
 	});
-	console.log(this.state);
 	
     const { errors, isValid } = valid.val(formdata);	
     if (isValid) {
       this.setState({ errors: {}, isLoading: true });
-      this.state.signFunction(formdata).then(
-        (suc) => {this.context.router.push(this.state.successRedirect);},
+      this.state.signFunction({data:formdata, target:this.state.buttonText}).then(
+        (suc) => {this.state.successFunction();},
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
 	} else {	
@@ -95,7 +118,7 @@ class Form extends React.Component {
 		}
         <div className="form-group">
           <button disabled={this.state.invalid} className="btn btn-primary btn-lg">
-            Sign up
+			  {this.state.buttonText}
           </button>
         </div>
       </form>

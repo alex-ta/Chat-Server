@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export function signUp(userData) {
+export function signUp(formdata) {
   return dispatch => {
-	console.log(userData);
-    return axios.post('/signup', userData);
+	console.log(formdata);
+    return axios.post('/signup', formdata.data);
   }
 }
 

@@ -62,6 +62,7 @@ class Controller{
     });
     logger.log("[POST]" + this.basicUrl);
     // delete
+	const className = this.className;
     app.delete(this.idUrl, (req,res) => {
       this.clazz.remove({
         _id: req.params.id
@@ -69,14 +70,15 @@ class Controller{
         if (err) {
           res.send(err);
 		} else {
-		  res.json({ message: this.className + ' deleted' });
+		  res.json({ message: className + ' deleted' });
 		}
       });
     });
     logger.log("[DELETE]" + this.idUrl);
     // update
     app.put(this.idUrl, (req,res) => {
-      this.clazz.findOneAndUpdate(req.params.id, req.body, {new: true}, function(err, obj) {
+	  console.log(req.params.id);
+	  this.clazz.findOneAndUpdate({_id:req.params.id}, req.body, {new: true}, function(err, obj) {
         if (err) {
           res.send(err);
 		} else {
