@@ -8,24 +8,32 @@ class Chatroom extends Component {
   
   constructor(props) {
 	super(props);
+	const roomHist = this.props.roomName + "_hist";
+	
 	this.state = {
 		user: this.props.auth.user,
 		message: '',
-		chatHist: [],
 		mapDate: this.mapDate,
 		socket: this.props.socket,
-		roomName: this.props.roomName
+		roomName: this.props.roomName,
+		[roomHist]: []
 	}
-	console.log("props");
-	console.log(this.state.roomName);
     this.onSend = this.onSend.bind(this);
 	this.onChange = this.onChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
-	  if(this.state.roomName != nextProps.rootName){
-		this.state.chatHist = [];
-		this.setState({"roomName":nextProps.roomName});
+	  if(this.state.roomName != nextProps.roomName){
+		const roomHist = nextProps.roomName + "_hist";
+		if(this.state[roomHist]){
+			console.log("room defined" + console.log(this.state[roomHist]));
+			this.setState({"roomName":nextProps.roomName});
+		} else {
+			console.log("room undefined")
+			this.setState({"roomName":nextProps.roomName,
+						  [roomHist]: []});
+						
+		}
 	  }
   }
   
@@ -38,7 +46,6 @@ class Chatroom extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-  
 
   onSend(e) {
 	e.preventDefault();
@@ -54,11 +61,13 @@ class Chatroom extends Component {
 	socket.emit('chat', data);
   }
   
-  componentDidMount() {
+  componentDidMount() {      
+	  console.log("component did mount with "+this.state.roomName);
 	  const that = this;
-      that.state.socket.on('chat', function (data) {
+	  this.state.socket.on('chat', function (data) {
+	    const roomHist = that.state.roomName + "_hist";
 		that.setState({ 
-			chatHist: that.state.chatHist.concat([data])
+			[roomHist] : that.state[roomHist].concat([data])
 		});
       });
   }
@@ -66,11 +75,13 @@ class Chatroom extends Component {
   render() {
 	  const props = this.props;
 	  const state = this.state;
-		return (
+	  const roomHist = this.state.roomName + "_hist";
+	  console.log(state);
+	  return (
 		<div>
 			<div className="content">
 				{
-					state.chatHist.map((data, index) => {
+					state[roomHist].map((data, index) => {
 						return <p key={index}>{"[" + state.mapDate(new Date(data.date)) +"] " + data.username + ": " + data.message }</p>
 					})
 				}
