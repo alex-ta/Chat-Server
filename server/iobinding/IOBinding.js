@@ -6,7 +6,6 @@ const User = require("../models/Dataschemas").User;
 const Chatroom = require("../models/Dataschemas").Chatroom;
 const system = require("../system/SystemMessenger");
 const logger = require("../system/Logger");
-const db = "";
 const limit = 5;
 
 class IOBinding extends Binding{
@@ -47,11 +46,11 @@ class IOBinding extends Binding{
     console.log(room);
 	const length = room.history.length
     user.binding.send(room.history.slice(length-limit, length));
-    //user.binding.send(system.connected);
+    user.binding.send(system.connected);
   }
 
   disconnectChatroom(room,user){
-    //user.binding.send(system.disconnected);
+    user.binding.send(system.disconnected);
   }
 
   connect(socket){

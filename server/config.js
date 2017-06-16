@@ -9,6 +9,6 @@ module.exports = {
 	  success: '/',
 	  failure: '/login',
 	  signup: '/signup',
-	  authenticated: '/priv'
+	  authenticated: '/auth'
   }
 }

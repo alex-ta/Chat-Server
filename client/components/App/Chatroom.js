@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { senden } from '../../actions/chatActions';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -26,10 +25,8 @@ class Chatroom extends Component {
 	  if(this.state.roomName != nextProps.roomName){
 		const roomHist = nextProps.roomName + "_hist";
 		if(this.state[roomHist]){
-			console.log("room defined" + console.log(this.state[roomHist]));
 			this.setState({"roomName":nextProps.roomName});
 		} else {
-			console.log("room undefined")
 			this.setState({"roomName":nextProps.roomName,
 						  [roomHist]: []});
 						
@@ -57,12 +54,10 @@ class Chatroom extends Component {
 	data.chatroom = this.state.roomName;
 	// wrong chatroom misses 
 	//data.chatroom = "new room";
-	console.log(data);
 	socket.emit('chat', data);
   }
   
   componentDidMount() {      
-	  console.log("component did mount with "+this.state.roomName);
 	  const that = this;
 	  this.state.socket.on('chat', function (data) {
 	    const roomHist = that.state.roomName + "_hist";
@@ -76,7 +71,6 @@ class Chatroom extends Component {
 	  const props = this.props;
 	  const state = this.state;
 	  const roomHist = this.state.roomName + "_hist";
-	  console.log(state);
 	  return (
 		<div>
 			<div className="content">
@@ -111,4 +105,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { senden })(Chatroom);
+export default connect(mapStateToProps, {})(Chatroom);

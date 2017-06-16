@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node -- server/index.js",
-    "test": "mocha"
+    "test": "mocha",
+    "uml": "wavi server server.svg && wavi client client.svg",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
