@@ -1,12 +1,12 @@
-import path from 'path'
-import webpack from 'webpack';
+const path = require('path');
+const webpack = require('webpack');
 
-export default {
+module.exports = {
   context: __dirname,
   entry: './client/index.js',
   output: {
-    path: path.join(__dirname, 'build'),
-    filename: 'build.js'
+    path: __dirname,
+    filename: 'bundel.js'
   },
   module: {
 	loaders:[
@@ -16,7 +16,7 @@ export default {
 			  path.join(__dirname, 'client'),
 			  path.join(__dirname, 'server/shared')
 			],
-			loaders: [ 'react', 'babel' ]
+			loaders: [ 'babel' ]
 		  },
 		  {
 		    test: /\.(jpg|png|svg)$/,

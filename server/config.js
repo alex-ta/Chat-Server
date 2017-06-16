@@ -1,7 +1,7 @@
 module.exports = {
   jwtSecret: 'somesecretkeyforjsonwebtoken',
   databaseUrl: 'mongodb://localhost/chatdb',
-  developmentDrop: true,
+  serverPort: 3000,
   url:{
 	  logout: '/logout',
 	  login: '/login',

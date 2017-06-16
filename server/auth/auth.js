@@ -1,16 +1,16 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import config from '../config';
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const config = require('../config');
 const User = require('../models/DataSchemas').User;
 // auth.js
-var passport = require("passport");  
-var passportJWT = require("passport-jwt");  
+var passport = require("passport");
+var passportJWT = require("passport-jwt");
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
 const validate = require('../shared/validation');
 const isEmpty = require('lodash/isEmpty');
 
-var params = {  
+var params = {
     secretOrKey: config.jwtSecret,
     jwtFromRequest: ExtractJwt.fromAuthHeader()
 };
@@ -31,7 +31,7 @@ const fail = function(err, req, res, next){
 	res.redirect(failure);
 }
 
-	
+
 const init = function(app){
 
 	var strategy = new JwtStrategy(params, function(payload, done) {
@@ -48,7 +48,7 @@ const init = function(app){
 
 	passport.use(strategy);
 	app.use(passport.initialize());
-	
+
 	/*
 	app.get(logout, (req, res) => {
 		req.logout();
@@ -56,14 +56,14 @@ const init = function(app){
 		res.redirect(failure);
 	});
 	*/
-	
+
 	// check if exits
 	app.get(exists + '/:identifier', (req, res) => {
 	  User.find({'username': req.params.identifier} , (err,user) => {
 		  res.json({user});
 		});
 	});
-	
+
 	// login
 	app.post(login, (req, res) => {
 		// get username an password from request
@@ -90,16 +90,16 @@ const init = function(app){
 			}
 		});
 	});
-	
+
 	// sign up
 	app.post(signup, (req, res) => {
 			let { errors } = validate.val(req.body);
 			User.find({'username': req.body.username}, (err,user) => {
-			
+
 				if(user.length){
 				  errors.username = 'username already taken';
 				}
-				
+
 				if (isEmpty(errors)) {
 					const user = new User (req.body);
 					// crypt pwd
@@ -115,7 +115,7 @@ const init = function(app){
 					});
 				}
 			});
-		});	
+		});
 }
 
 module.exports = {init:init, fail:fail, auth:auth};
