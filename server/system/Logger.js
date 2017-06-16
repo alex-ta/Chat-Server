@@ -2,8 +2,16 @@
 // require modules
 const util = require("util");
 const fs = require("fs");
+const mkdir = require("mkdirp");
 const endOfLine = require("os").EOL
 const logFolder = "logs/"
+
+mkdir(logFolder, function(err) { 
+	if(err){
+		console.log("Something went wrong with your logfile folder");
+		console.log(err);
+	}
+});
 
 // define logger
 class Logger{
@@ -12,7 +20,7 @@ class Logger{
   }
 
   log(msg){
-    this.logMsg = "Logger: "+msg;
+    this.logMsg = "["+(new Date()).toISOString()+"]Logger: "+msg;
     if(!this.logFile){
       console.log(this.logMsg);
     }else{
@@ -26,7 +34,7 @@ class Logger{
 
   setLogFile(logFileIn){
     if(typeof(logFileIn) == "string"){
-      this.logFile = this.logFolder + logFileIn;
+      this.logFile = logFolder + logFileIn;
     } else {
       this.log("A Logfile should be a string not a " + typeof(logFileIn));
     }

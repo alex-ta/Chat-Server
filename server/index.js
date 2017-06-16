@@ -1,25 +1,26 @@
+// check passed args for development
+const isDevelopment = process.argv.indexOf("dev") >= 0;
+
 const http = require("http");
-import express from 'express';
-import path from 'path';
-import bodyParser from 'body-parser';
-import webpack from 'webpack';
-import webpackMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from '../webpack.config.dev';
-import mongoose from 'mongoose';
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-import logger from "./system/Logger";
-//logger.setLogFile("app.log");
+const logger = require("./system/Logger");
+if(!isDevelopment){
+	logger.setLogFile("server.log");
+}
+const Chat = require("./iobinding/IOBinding");
+const Schemas = require("./models/Dataschemas");
+const Controller = require("./api/Controller");
+const config = require("./config");
+const auth = require('./auth/auth');
 
-import Chat from "./iobinding/IOBinding";
-import Schemas from "./models/Dataschemas";
-import Controller from "./api/Controller";
 
 const userController = new Controller("/auth/", "user/", Schemas.User);
 const roomController = new Controller("/auth/", "chatroom/", Schemas.Chatroom);
 
-const config  = require('./config');
-const auth = require('./auth/auth');
 
 // setting the promise library
 mongoose.Promise = require('bluebird');
@@ -45,16 +46,27 @@ userController.append(app);
 roomController.append(app);
 
 
-// compile code with webpack
-const compiler = webpack(webpackConfig);
+if(isDevelopment){
+	const webpackMiddleware = require('webpack-dev-middleware');
+	const webpackHotMiddleware = require('webpack-hot-middleware');
+	const webpackConfig = require('../webpack.config.dev');
+	const webpack = require('webpack');
+	// compile code with webpack
+	const compiler = webpack(webpackConfig);
+	// use hot server
+	app.use(webpackMiddleware(compiler, {
+	  hot: true,
+	  publicPath: webpackConfig.output.publicPath,
+	  noInfo: true
+	}));
+	app.use(webpackHotMiddleware(compiler));
+} else {
+	//server content
+	app.get('/bundle.js', (req, res) => {
+	  res.sendFile(path.join(__dirname, '../build/bundle.js'));
+	});
+}
 
-// use hot server
-app.use(webpackMiddleware(compiler, {
-  hot: true,
-  publicPath: webpackConfig.output.publicPath,
-  noInfo: true
-}));
-app.use(webpackHotMiddleware(compiler));
 
 
 //server content
