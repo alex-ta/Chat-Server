@@ -33,6 +33,19 @@ change to app root folder and run:
 * Variable order:
   1. variable as const
   2. variable as let
+#### Dockerfile
+
+Build Release
+
+docker build -t "chat" .
+
+Run the Container
+
+docker run -p 3000:3000 chat
+
+Access the Container
+(check your ip -> docker-machine ip)
+Browse to ipaddr:3000
 
 #### Used Modules
 Node modules

@@ -5,8 +5,8 @@ module.exports = {
   context: __dirname,
   entry: './client/index.js',
   output: {
-    path: path.join(__dirname, 'bundle'),
-    filename: 'bundel.js'
+    path: path.join(__dirname, 'build'),
+    filename: 'bundle.js'
   },
   module: {
 	loaders:[

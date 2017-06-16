@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('../config');
-const User = require('../models/DataSchemas').User;
+const User = require('../models/Dataschemas').User;
 // auth.js
 var passport = require("passport");
 var passportJWT = require("passport-jwt");
