@@ -6,7 +6,7 @@ const mkdir = require("mkdirp");
 const endOfLine = require("os").EOL
 const logFolder = "logs/"
 
-mkdir(logFolder, function(err) { 
+mkdir(logFolder, function(err) {
 	if(err){
 		console.log("Something went wrong with your logfile folder");
 		console.log(err);

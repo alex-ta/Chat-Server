@@ -1,6 +1,5 @@
 // check passed args for development
 const isDevelopment = process.argv.indexOf("dev") >= 0;
-
 const http = require("http");
 const express = require('express');
 const path = require('path');
@@ -11,40 +10,33 @@ const logger = require("./system/Logger");
 if(!isDevelopment){
 	logger.setLogFile("server.log");
 }
+const mapping = require("./api/mapping");
 const Chat = require("./iobinding/IOBinding");
-const Schemas = require("./models/Dataschemas");
-const Controller = require("./api/Controller");
 const config = require("./config");
 const auth = require('./auth/auth');
-
-
-const userController = new Controller("/auth/", "user/", Schemas.User);
-const roomController = new Controller("/auth/", "chatroom/", Schemas.Chatroom);
-
+const port = config.serverPort;
 
 // setting the promise library
 mongoose.Promise = require('bluebird');
 // setting database url
 mongoose.connect(config.databaseUrl);
 
-let app = express();
+
+const app = express();
 
 /**Middlewate*/
+// logger
+app.use((req, res, next) => {
+	  logger.log(`${req.method} ${req.url}`);
+	  next();
+	});
 // user bodyparser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ extended: false }));
-// logger
-app.use((req, res, next) => {
-  logger.log(`${req.method} ${req.url}`);
-  next();
-});
-
 // init auth
 auth.init(app);
-
-userController.append(app);
-roomController.append(app);
-
+// add controllers
+mapping.init(app);
 
 if(isDevelopment){
 	const webpackMiddleware = require('webpack-dev-middleware');
@@ -67,18 +59,15 @@ if(isDevelopment){
 	});
 }
 
-
-
 //server content
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './index.html'));
 });
 
-const port = 3000;
 const server = http.createServer(app);
-const chat = new Chat(server);
-//logger.log(chat);
+// wrap server in io
+new Chat(server);
 
 server.listen(port,() =>{
-  logger.log("Bind Server on port: " + port,()=>{});
+  logger.log("Bind Server on port: " + port);
 });
