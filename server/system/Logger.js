@@ -7,44 +7,44 @@ const endOfLine = require("os").EOL
 const logFolder = "logs/"
 
 mkdir(logFolder, function(err) {
-	if(err){
-		console.log("Something went wrong with your logfile folder");
-		console.log(err);
-	}
+  if (err) {
+    console.log("Something went wrong with your logfile folder");
+    console.log(err);
+  }
 });
 
 // define logger
-class Logger{
-  constructor(){
+class Logger {
+  constructor() {
     this.logFile = "";
   }
 
-  log(msg){
-    this.logMsg = "["+(new Date()).toISOString()+"]Logger: "+msg;
-    if(!this.logFile){
+  log(msg) {
+    this.logMsg = "[" + (new Date()).toISOString() + "]Logger: " + msg;
+    if (!this.logFile) {
       console.log(this.logMsg);
-    }else{
-      fs.appendFile(this.logFile,this.logMsg+endOfLine, (err) => {
-        if(err){
+    } else {
+      fs.appendFile(this.logFile, this.logMsg + endOfLine, (err) => {
+        if (err) {
           console.log(err);
         }
       });
     }
   }
 
-  setLogFile(logFileIn){
-    if(typeof(logFileIn) == "string"){
+  setLogFile(logFileIn) {
+    if (typeof(logFileIn) == "string") {
       this.logFile = logFolder + logFileIn;
     } else {
       this.log("A Logfile should be a string not a " + typeof(logFileIn));
     }
   }
 
-  getLogFile(){
+  getLogFile() {
     return this.logFile;
   }
 
-  logJson(obj){
+  logJson(obj) {
     this.log(JSON.stringify(util.inspect(obj)));
   }
 }

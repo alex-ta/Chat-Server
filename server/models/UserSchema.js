@@ -9,8 +9,15 @@ const connection = mongoose.createConnection(config.databaseUrl);
 autoIncrement.initialize(connection);
 // create a schema
 const userSchema = new Schema({
-  username: {type: String, required: true, unique:true},
-  password: {type: String, required: true},
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
   lastlogin: Date,
   image: String,
   state: String,

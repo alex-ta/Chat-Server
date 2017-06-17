@@ -3,15 +3,15 @@ const events = require('events');
 
 
 class Binding {
-  connect(){
+  connect() {
     this.emit("connect");
     events.EventEmitter.call(this);
   }
-  disconnect(){
+  disconnect() {
     this.emit("disconnect");
   }
-  send(data){
-    this.emit("send",data);
+  send(data) {
+    this.emit("send", data);
   }
 }
 

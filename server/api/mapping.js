@@ -7,7 +7,8 @@ const userController = new Controller(authUrl, "user/", Schemas.User);
 const roomController = new Controller(authUrl, "chatroom/", Schemas.Chatroom);
 
 
-module.exports = {init:function(app){
+module.exports = {
+  init: function(app) {
     userController.append(app);
     roomController.append(app);
   }

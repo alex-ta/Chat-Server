@@ -1,5 +1,5 @@
-class Message{
-  constructor(username, message, date, chatroom, info){
+class Message {
+  constructor(username, message, date, chatroom, info) {
     this.username = username;
     this.message = message;
     this.date = date;
