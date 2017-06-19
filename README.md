@@ -37,11 +37,13 @@ change to app root folder and run:
 
 Build Release
 
-docker build -t "chat" .
+npm build
+
+docker build -t usecase/chat-server .
 
 Run the Container
 
-docker run -p 3000:3000 chat
+docker run -p 3000:3000 usecase/chat-server
 
 Access the Container (check your ip -> docker-machine ip) Browse to ipaddr:3000
 
