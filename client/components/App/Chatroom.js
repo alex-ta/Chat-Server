@@ -23,7 +23,6 @@ class Chatroom extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-	console.log(nextProps);
     this.setState({'roomName': nextProps.roomName, 'roomHist': nextProps.roomHist});
   }
 
@@ -38,7 +37,7 @@ class Chatroom extends Component {
     const socket = this.state.socket;
     const data = {};
     data.username = this.state.user.username;
-	data.image = this.state.user.image;
+    data.image = this.state.user.image;
     data.message = this.state.message;
     data.date = new Date();
     data.chatroom = this.state.roomName;
@@ -48,27 +47,26 @@ class Chatroom extends Component {
   render() {
     const props = this.props;
     const state = this.state;
-	console.log(state);
+    console.log(state);
     return (
       <div>
-      <div className="chat-panel">
-      <ul className="chat">
-        <div className='content'>
-          { state.roomHist.map((data, index) => {
-			console.log(data);
-            return <Message key={this.state.roomName + index} data={data} user={state.user} />
-          })
-}
+        <div className='chat-panel'>
+          <ul className='chat'>
+            <div className='content'>
+              {state.roomHist.map((data, index) => {
+                console.log(data);
+                return <Message key={this.state.roomName + index} data={data} user={state.user}/>
+              })}
+            </div>
+          </ul>
         </div>
-        </ul>
-        </div>
-        <div className="panel-footer">
-                              <form onSubmit={this.onSend} className="input-group">
-                              <input id='message' name='message' type='text' className="form-control input-sm" placeholder="Type your message here..." onChange={this.onChange}/>
-                              <span className="input-group-btn">
-                              <input className="btn btn-warning btn-sm"  id='senden' type='submit'  value='senden'/>
-                              </span>
-                              </form>
+        <div className='panel-footer'>
+          <form onSubmit={this.onSend} className='input-group'>
+            <input id='message' name='message' type='text' className='form-control input-sm' placeholder='Type your message here...' onChange={this.onChange}/>
+            <span className='input-group-btn'>
+              <input className='btn btn-warning btn-sm' id='senden' type='submit' value='senden'/>
+            </span>
+          </form>
         </div>
       </div>
     );

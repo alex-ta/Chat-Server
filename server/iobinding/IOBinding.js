@@ -6,7 +6,7 @@ const User = require('../models/Dataschemas').User;
 const Chatroom = require('../models/Dataschemas').Chatroom;
 const system = require('../system/SystemMessenger');
 const logger = require('../system/Logger');
-const limit = 5;
+const limit = require('../config').chatLimit;
 
 class IOBinding extends Binding {
   constructor(server) {
@@ -37,27 +37,30 @@ class IOBinding extends Binding {
       } else if (err || room.length != 1) {
         logger.log('Unavailiable Chatroom call: ' + data.chatroom + ' from ' + username);
       } else {
-		const roomObj = room[0]
+        const roomObj = room[0]
         roomObj.history.push(data);
         that.io.sockets.in(data.chatroom).emit('chat', data);
-	  Chatroom.update({_id:roomObj._id}, {history:roomObj.history}, (err)=> {
-		  logger.log("Something went woring while saving");
-		  logger.log(err);
-	  });
+        Chatroom.update({
+          _id: roomObj._id
+        }, {
+          history: roomObj.history
+        }, (err) => {
+          logger.log('Something went woring while saving');
+          logger.log(err);
+        });
       }
     });
   }
 
   connectChatroom(room, user) {
     const length = room.history.length;
-	console.log(room.history.slice(length - limit, length));
+    console.log(room.history.slice(length - limit, length));
     user.binding.send(room.history.slice(length - limit, length));
-    user.binding.send(system.connected(user.username, room.name));
+    //user.binding.send(system.connected(user.username, room.name));
   }
 
   disconnectChatroom(room, user) {
-    user.binding.send(system.disconnected(user.username, room.name));
-	
+    //user.binding.send(system.disconnected(user.username, room.name));
   }
 
   connect(socket) {
@@ -69,7 +72,7 @@ class IOBinding extends Binding {
       if (err || users.length != 1) {
         logger.log('[connect] unkown user call: ' + username);
       } else {
-		const user = users[0];
+        const user = users[0];
         user.binding = new IOUserBinding(socket);
         that.users.push(user);
         Chatroom.find({}, function(err, rooms) {

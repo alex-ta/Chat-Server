@@ -50,7 +50,7 @@ const init = function(app) {
       return done(null, {
         id: user.id,
         username: user.username,
-		image: user.image
+        image: user.image
       });
     });
   });
@@ -134,8 +134,8 @@ const init = function(app) {
 
       if (isEmpty(errors)) {
         const user = new User(req.body);
-		console.log((Math.random() * icons.length) + 1);
-		user.image = config.url.avatarUrl + icons[Math.floor((Math.random() * icons.length) + 1)];
+        console.log((Math.random() * icons.length) + 1);
+        user.image = config.url.avatarUrl + icons[Math.floor((Math.random() * icons.length) + 1)];
         // crypt pwd
         user.password = user.decode(user.password);
         // save user

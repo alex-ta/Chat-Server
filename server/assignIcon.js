@@ -4,8 +4,10 @@ const icons = [];
 
 fs.readdir(testFolder, (err, files) => {
   files.forEach(file => {
-	  icons.push("/" + file);
+    icons.push('/' + file);
   });
 });
 
-module.exports = { icons:icons };
+module.exports = {
+  icons: icons
+};

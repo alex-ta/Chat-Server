@@ -8,17 +8,14 @@ class IOUserBinding extends Binding {
   }
 
   send(data) {
-	console.log("--------")
-	console.log(data)
-	console.log("---------")
     if (data.constructor.name == 'Array') {
-	  if(data.length > 0){
-		  data.forEach((msg) => {
-			console.log("msg:")
-			console.log(msg);
-			this.socket.emit('chat', msg);
-		  });
-	  }
+      if (data.length > 0) {
+        data.forEach((msg) => {
+          console.log('msg:')
+          console.log(msg);
+          this.socket.emit('chat', msg);
+        });
+      }
 
     } else {
       this.socket.emit('chat', data);

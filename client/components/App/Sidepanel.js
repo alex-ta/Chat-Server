@@ -28,25 +28,24 @@ class Sidepanel extends Component {
     const onClick = this.state.onClick;
     const room = state.chatroom;
     return (
-        <div className='col-sm-4 col-md-3 sidebar'>
-          <div className='list-group'>
-            <span href='#' className='list-group-item' id="ChatHeader">
-              Available Chatrooms
-              <span className='pull-right' id='slide-submenu'>
-                <i className='fa fa-times'></i>
-              </span>
+      <div className='col-sm-4 col-md-3 sidebar'>
+        <div className='list-group'>
+          <span href='#' className='list-group-item' id='ChatHeader'>
+            Available Chatrooms
+            <span className='pull-right' id='slide-submenu'>
+              <i className='fa fa-times'></i>
             </span>
-            {state.chatrooms.map((roomName, count) => {
-              console.log(roomName);
-              return (
-                <button onClick={onClick} name={roomName} id={roomName} key={count} className='list-group-item'>
-                  {roomName}
-                </button>
-              )
-            })
-}
-          </div>
+          </span>
+          {state.chatrooms.map((roomName, count) => {
+            console.log(roomName);
+            return (
+              <button onClick={onClick} name={roomName} id={roomName} key={count} className='list-group-item'>
+                {roomName}
+              </button>
+            )
+          })}
         </div>
+      </div>
     );
   }
 }
@@ -55,4 +54,4 @@ Sidepanel.propTypes = {
   onClick: PropTypes.func.isRequired
 }
 
-export default connect( null ,{getAll})(Sidepanel);
+export default connect(null, {getAll})(Sidepanel);

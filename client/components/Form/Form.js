@@ -99,8 +99,7 @@ class Form extends React.Component {
       <form onSubmit={this.handelSubmit}>
         {ref.state.fields.map(function(field, count) {
           return (<FormGroup key={count} id={field} error={ref.state.errors[field]} onChange={ref.handelChange} onBlur={ref.state.blurdata[field]} value={ref.state[field]} name={field}/>);
-        })
-}
+        })}
         <div className='form-group'>
           <button disabled={this.state.invalid} className='btn btn-primary btn-lg'>
             {this.state.buttonText}

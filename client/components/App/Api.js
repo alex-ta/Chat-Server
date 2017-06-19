@@ -103,8 +103,7 @@ class Api extends Component {
               <div className='modal-body'>
                 {(state.objKeys.length > 0)
                   ? <Form fields={state.objKeys} blurdata={{}} signFunction={onSubmit} successFunction={update} {...opts}/>
-                  : <div className='noFieldsFound'/>
-}
+                  : <div className='noFieldsFound'/>}
               </div>
               <div className='modal-footer'>
                 <button type='button' className='btn btn-default' data-dismiss='modal'>Close</button>
@@ -131,8 +130,7 @@ class Api extends Component {
               </div>
             </div>
           );
-        })
-}
+        })}
       </div>
     );
   }
