@@ -11,53 +11,55 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {socket : {},
-user : this.props.auth.user,
-chatroom : ''
-};
+    this.state = {
+      socket: {},
+      user: this.props.auth.user,
+      chatroom: ''
+    };
 
-this.onClick = this.onClick.bind(this);
-this.getRoomHistory = this.getRoomHistory.bind(this);
-}
+    this.onClick = this.onClick.bind(this);
+    this.getRoomHistory = this.getRoomHistory.bind(this);
+  }
 
-getRoomHistory(room) {
-let currenHist = this.state[room];
-if (!currenHist) {
-currenHist = [];
-}
-return currenHist;
-}
+  getRoomHistory(room) {
+    let currenHist = this.state[room];
+    if (!currenHist) {
+      currenHist = [];
+    }
+    return currenHist;
+  }
 
-componentWillMount() {
-const socket = io.connect('', {
-query: 'username=' + this.state.user.username
-});
+  componentWillMount() {
+    const socket = io.connect('', {
+      query: 'username=' + this.state.user.username
+    });
 
-const that = this;
-socket.on('chat', function(data) {
-that.setState({
-  [data.chatroom]: that.getRoomHistory(data.chatroom).concat([data])
-});
-});
-this.setState({socket: socket});
-}
+    const that = this;
+    socket.on('chat', function(data) {
+      that.setState({
+        [data.chatroom]: that.getRoomHistory(data.chatroom).concat([data])
+      });
+    });
+    this.setState({socket: socket});
+  }
 
-onClick(e) {
-e.preventDefault();
-this.setState({'chatroom': e.target.name});
-}
+  onClick(e) {
+    e.preventDefault();
+    this.setState({'chatroom': e.target.name});
+  }
 
-render() {
-const state = this.state;
-const onClick = this.onClick;
-const room = state.chatroom;
-const roomHist = this.getRoomHistory(room);
-return (
-  <div className='chatcontainer row'>
-  <div className='col-sm-8 col-md-9 sidebar'>
-    {room
-      ? <Chatroom socket={state.socket} roomName={room} roomHist={roomHist}></Chatroom>
-      : < i>}d='selectChat'>Select or create a Chatroom </p>}
+  render() {
+    const state = this.state;
+    const onClick = this.onClick;
+    const room = state.chatroom;
+    const roomHist = this.getRoomHistory(room);
+    return (
+      <div className='chatcontainer row'>
+        <div className='col-sm-8 col-md-9 sidebar'>
+          {room
+            ? <Chatroom socket={state.socket} roomName={room} roomHist={roomHist}></Chatroom>
+            : <p id="selectChat">Select or create a Chatroom
+            </p>}
         </div>
         <Sidepanel onClick={onClick}/>
       </div>
@@ -73,4 +75,4 @@ function mapStateToProps(state) {
   return {auth: state.auth};
 }
 
-export default connect(mapStateToProps, {} )(Home);
+export default connect(mapStateToProps, {})(Home);
