@@ -17,36 +17,36 @@ class Navbar extends React.Component {
 
     const userLinks = (
       <div>
-        <ul className="nav navbar-nav navbar-default">
-          <NavLink to="/">
+        <ul className='nav navbar-nav navbar-default'>
+          <NavLink to='/'>
             Home
           </NavLink>
-          <NavLink to="/api">
+          <NavLink to='/api'>
             Chatrooms
           </NavLink>
         </ul>
-        <ul className="nav navbar-nav navbar-right">
+        <ul className='nav navbar-nav navbar-right'>
           <li>
-            <Link to="" onClick={this.logout.bind(this)}>Logout</Link>
+            <Link to='' onClick={this.logout.bind(this)}>Logout</Link>
           </li>
         </ul>
       </div>
     );
 
     const guestLinks = (
-      <ul className="nav navbar-nav navbar-right">
-        <NavLink to="/signup">Sign Up</NavLink>
-        <NavLink to="/login">Login</NavLink>
+      <ul className='nav navbar-nav navbar-right'>
+        <NavLink to='/signup'>Sign Up</NavLink>
+        <NavLink to='/login'>Login</NavLink>
       </ul>
     );
 
     return (
-      <nav className="navbar navbar-default">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <Link to="/" className="navbar-brand">Chat App</Link>
+      <nav className='navbar navbar-default'>
+        <div className='container-fluid'>
+          <div className='navbar-header'>
+            <Link to='/' className='navbar-brand'>Chat App</Link>
           </div>
-          <div className="collapse navbar-collapse">
+          <div className='collapse navbar-collapse'>
             {isAuthenticated
               ? userLinks
               : guestLinks}

@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 const config = require('../config');
 const User = require('../models/Dataschemas').User;
 // auth.js
-var passport = require("passport");
-var passportJWT = require("passport-jwt");
+var passport = require('passport');
+var passportJWT = require('passport-jwt');
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
 const validate = require('../shared/validation');
@@ -24,7 +24,7 @@ const failure = config.url.failure || '/';
 
 
 const auth = function(req, res, next) {
-  return passport.authenticate("jwt", {
+  return passport.authenticate('jwt', {
     session: false
   });
 }

@@ -7,7 +7,7 @@ class Chatroom extends Component {
 
   constructor(props) {
     super(props);
-    const roomHist = this.props.roomName + "_hist";
+    const roomHist = this.props.roomName + '_hist';
 
     this.state = {
       user: this.props.auth.user,
@@ -23,11 +23,11 @@ class Chatroom extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.state.roomName != nextProps.roomName) {
-      const roomHist = nextProps.roomName + "_hist";
+      const roomHist = nextProps.roomName + '_hist';
       if (this.state[roomHist]) {
-        this.setState({"roomName": nextProps.roomName});
+        this.setState({'roomName': nextProps.roomName});
       } else {
-        this.setState({"roomName": nextProps.roomName, [roomHist]: []});
+        this.setState({'roomName': nextProps.roomName, [roomHist]: []});
 
       }
     }
@@ -56,14 +56,14 @@ class Chatroom extends Component {
     data.date = new Date();
     data.chatroom = this.state.roomName;
     // wrong chatroom misses
-    //data.chatroom = "new room";
+    //data.chatroom = 'new room';
     socket.emit('chat', data);
   }
 
   componentDidMount() {
     const that = this;
     this.state.socket.on('chat', function(data) {
-      const roomHist = that.state.roomName + "_hist";
+      const roomHist = that.state.roomName + '_hist';
       that.setState({
         [roomHist]: that.state[roomHist].concat([data])
       });
@@ -73,18 +73,18 @@ class Chatroom extends Component {
   render() {
     const props = this.props;
     const state = this.state;
-    const roomHist = this.state.roomName + "_hist";
+    const roomHist = this.state.roomName + '_hist';
     return (
       <div>
-        <div className="content">
+        <div className='content'>
           {state[roomHist].map((data, index) => {
-            return <p key={index}>{"[" + state.mapDate(new Date(data.date)) + "] " + data.username + ": " + data.message}</p>
+            return <p key={index}>{'[' + state.mapDate(new Date(data.date)) + '] ' + data.username + ': ' + data.message}</p>
           })
 }
         </div>
         <div>
-          <input id="message" name="message" type="text" placeholder="schreibe etwas..." onChange={this.onChange}/>
-          <input id="senden" type="submit" onClick={this.onSend} value="senden"/>
+          <input id='message' name='message' type='text' placeholder='schreibe etwas...' onChange={this.onChange}/>
+          <input id='senden' type='submit' onClick={this.onSend} value='senden'/>
         </div>
       </div>
     );

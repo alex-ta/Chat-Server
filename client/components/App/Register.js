@@ -8,10 +8,10 @@ class Register extends React.Component {
   render() {
     const {signUp, exists} = this.props;
     return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-          <Form fields={["username", "password", "passwordConfirm"]} buttonText="Sign Up" signFunction={signUp} blurdata={{
-            "username": exists
+      <div className='row'>
+        <div className='col-md-4 col-md-offset-4'>
+          <Form fields={['username', 'password', 'passwordConfirm']} buttonText='Sign Up' signFunction={signUp} blurdata={{
+            'username': exists
           }}/>
         </div>
       </div>

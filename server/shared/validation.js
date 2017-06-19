@@ -12,7 +12,7 @@ function validateObject(obj) {
 
   keys.forEach((key) => {
     // continue over wrong input my handle number
-    if (typeof obj[key] != "string" | "number") {
+    if (typeof obj[key] != 'string' | 'number') {
       return
     }
     const props = {};
@@ -67,5 +67,5 @@ function validate(key, val, props, errors) {
 }
 
 module.exports = {
-  "val": validateObject
+  'val': validateObject
 };

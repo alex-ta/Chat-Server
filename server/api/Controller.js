@@ -1,4 +1,4 @@
-const logger = require("../system/Logger")
+const logger = require('../system/Logger')
 /**
  * Create Restconstroller
  *
@@ -11,7 +11,7 @@ class Controller {
     this.className = className;
     this.clazz = clazz;
     this.basicUrl = this.rootUrl + this.className;
-    this.idUrl = this.basicUrl + ":id";
+    this.idUrl = this.basicUrl + ':id';
   }
 
   append(app) {
@@ -25,15 +25,15 @@ class Controller {
         }
       });
     });
-    logger.log("[GET] " + this.basicUrl);
+    logger.log('[GET] ' + this.basicUrl);
     // show by id
     app.get(this.idUrl, (req, res) => {
-      if (req.params.id == "undefined") {
+      if (req.params.id == 'undefined') {
         const required = [];
         const attributes = this.clazz.schema.obj;
         Object.keys(attributes).forEach((key) => {
           // print just required attributes
-          if (typeof(attributes[key]) == "object") {
+          if (typeof(attributes[key]) == 'object') {
             required.push(key);
           }
         });
@@ -48,7 +48,7 @@ class Controller {
         });
       }
     });
-    logger.log("[GET]" + this.idUrl);
+    logger.log('[GET]' + this.idUrl);
     // create
     app.post(this.basicUrl, (req, res) => {
       var object = new this.clazz(req.body);
@@ -60,7 +60,7 @@ class Controller {
         }
       });
     });
-    logger.log("[POST]" + this.basicUrl);
+    logger.log('[POST]' + this.basicUrl);
     // delete
     const className = this.className;
     app.delete(this.idUrl, (req, res) => {
@@ -76,7 +76,7 @@ class Controller {
         }
       });
     });
-    logger.log("[DELETE]" + this.idUrl);
+    logger.log('[DELETE]' + this.idUrl);
     // update
     app.put(this.idUrl, (req, res) => {
       console.log(req.params.id);
@@ -92,7 +92,7 @@ class Controller {
         }
       });
     });
-    logger.log("[PUT]" + this.idUrl);
+    logger.log('[PUT]' + this.idUrl);
   }
 }
 

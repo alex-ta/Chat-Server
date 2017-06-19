@@ -5,8 +5,8 @@ class NavLink extends Component {
   render() {
     let isActive = this.context.router.isActive(this.props.to, true);
     let className = isActive
-      ? "active"
-      : "";
+      ? 'active'
+      : '';
 
     return (
       <li className={className}>

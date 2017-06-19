@@ -28,7 +28,7 @@ class Form extends React.Component {
 
   init(props) {
     if (!this.state.successRedirect) {
-      this.state.successRedirect = "";
+      this.state.successRedirect = '';
     }
     if (!this.state.successFunction) {
       const that = this;
@@ -47,7 +47,7 @@ class Form extends React.Component {
       if (props[field]) {
         this.state[field] = props[field];
       } else {
-        this.state[field] = "";
+        this.state[field] = '';
       }
     });
   }
@@ -62,7 +62,7 @@ class Form extends React.Component {
     const name = e.target.name;
     const value = e.target.value;
 
-    if (value !== "") {
+    if (value !== '') {
       this.props.blurdata[name](e, this);
     }
   }
@@ -101,8 +101,8 @@ class Form extends React.Component {
           return (<FormGroup key={count} id={field} error={ref.state.errors[field]} onChange={ref.handelChange} onBlur={ref.state.blurdata[field]} value={ref.state[field]} name={field}/>);
         })
 }
-        <div className="form-group">
-          <button disabled={this.state.invalid} className="btn btn-primary btn-lg">
+        <div className='form-group'>
+          <button disabled={this.state.invalid} className='btn btn-primary btn-lg'>
             {this.state.buttonText}
           </button>
         </div>

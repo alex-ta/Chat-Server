@@ -1,10 +1,10 @@
-const config = require("../config");
-const Schemas = require("../models/Dataschemas");
-const Controller = require("./Controller");
+const config = require('../config');
+const Schemas = require('../models/Dataschemas');
+const Controller = require('./Controller');
 
-const authUrl = config.url.authenticated + "/";
-const userController = new Controller(authUrl, "user/", Schemas.User);
-const roomController = new Controller(authUrl, "chatroom/", Schemas.Chatroom);
+const authUrl = config.url.authenticated + '/';
+const userController = new Controller(authUrl, 'user/', Schemas.User);
+const roomController = new Controller(authUrl, 'chatroom/', Schemas.Chatroom);
 
 
 module.exports = {

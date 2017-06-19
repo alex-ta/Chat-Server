@@ -3,12 +3,12 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 function setType(key) {
-  let type = "text";
-  if (key.indexOf("email") > -1) {
-    type = "email";
+  let type = 'text';
+  if (key.indexOf('email') > -1) {
+    type = 'email';
   }
-  if (key.indexOf("password") > -1) {
-    type = "password";
+  if (key.indexOf('password') > -1) {
+    type = 'password';
   }
   return type;
 }
@@ -31,8 +31,8 @@ const FormGroup = ({
   }
   return (
     <div className={classnames('form-group', {'has-error': error})}>
-      <label className="control-label">{name.toUpperCase()}</label>
-      <input onChange={onChange} onBlur={onBlur} value={value} type={type} name={name} className="form-control"/> {error && <span className="help-block">{error}</span>}
+      <label className='control-label'>{name.toUpperCase()}</label>
+      <input onChange={onChange} onBlur={onBlur} value={value} type={type} name={name} className='form-control'/> {error && <span className='help-block'>{error}</span>}
     </div>
   );
 }

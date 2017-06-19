@@ -10,7 +10,7 @@ class ChatroomApi extends Component {
   }
 
   render() {
-    return (<Api url="chatroom"/>);
+    return (<Api url='chatroom'/>);
   }
 
 }

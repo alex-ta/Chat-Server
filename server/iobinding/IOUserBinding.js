@@ -1,5 +1,5 @@
-const Binding = require("./Binding");
-const Chatroom = require("../models/Dataschemas").Chatroom;
+const Binding = require('./Binding');
+const Chatroom = require('../models/Dataschemas').Chatroom;
 
 class IOUserBinding extends Binding {
   constructor(socket) {
@@ -8,12 +8,12 @@ class IOUserBinding extends Binding {
   }
 
   send(data) {
-    if (data.constructor.name == "Array") {
+    if (data.constructor.name == 'Array') {
       data.forEach((msg) => {
-        this.socket.emit("chat", msg);
+        this.socket.emit('chat', msg);
       });
     } else {
-      this.socket.emit("chat", data);
+      this.socket.emit('chat', data);
     }
   }
 

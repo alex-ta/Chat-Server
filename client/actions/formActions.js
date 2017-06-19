@@ -48,7 +48,7 @@ export function get(url, id) {
 
 export function getAll(url) {
   return dispatch => {
-    console.log("get all");
+    console.log('get all');
     return axios.get(`${authenficatedUrl}/${url}/`);
   }
 }

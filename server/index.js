@@ -1,18 +1,18 @@
 // check passed args for development
-const isDevelopment = process.argv.indexOf("dev") >= 0;
-const http = require("http");
+const isDevelopment = process.argv.indexOf('dev') >= 0;
+const http = require('http');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const logger = require("./system/Logger");
+const logger = require('./system/Logger');
 if (!isDevelopment) {
-  logger.setLogFile("server.log");
+  logger.setLogFile('server.log');
 }
-const mapping = require("./api/mapping");
-const Chat = require("./iobinding/IOBinding");
-const config = require("./config");
+const mapping = require('./api/mapping');
+const Chat = require('./iobinding/IOBinding');
+const config = require('./config');
 const auth = require('./auth/auth');
 const port = config.serverPort;
 
@@ -73,5 +73,5 @@ const server = http.createServer(app);
 new Chat(server);
 
 server.listen(port, () => {
-  logger.log("Bind Server on port: " + port);
+  logger.log('Bind Server on port: ' + port);
 });

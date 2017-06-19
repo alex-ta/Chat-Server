@@ -65,71 +65,71 @@ class Login extends Component {
 
   render() {
     return ( <
-        div className = "card card-container" >
+        div className = 'card card-container' >
         <
         img src = {
           logo
         }
-        className = "App-logo"
-        alt = "logo" / >
+        className = 'App-logo'
+        alt = 'logo' / >
         <
-        p id = "profile-name"
-        className = "profile-name-card" > < /p> {
-          this.state.errors.form && < div className = "alert alert-danger" > {
+        p id = 'profile-name'
+        className = 'profile-name-card' > < /p> {
+          this.state.errors.form && < div className = 'alert alert-danger' > {
               this.state.errors.form
             } < /div>} <
-            form className = "form-signin" >
+            form className = 'form-signin' >
             <
             div className = {
               classnames('form-group', {
-                'has-error': this.state.errors["username"]
+                'has-error': this.state.errors['username']
               })
             } >
             <
-            label className = "control-label" > Username < /label> <
-            input type = "text"
-          id = "username"
-          name = "username"
-          className = "form-control"
-          placeholder = "Username"
-          required = ""
-          autoFocus = ""
+            label className = 'control-label' > Username < /label> <
+            input type = 'text'
+          id = 'username'
+          name = 'username'
+          className = 'form-control'
+          placeholder = 'Username'
+          required = ''
+          autoFocus = ''
           onChange = {
             this.onChange
           }
-          /> {this.state.errors["username"] && <span className="help-block">{this.state.errors["username"]}</span >
+          /> {this.state.errors['username'] && <span className='help-block'>{this.state.errors['username']}</span >
         } <
         /div>
 
         <
         div className = {
           classnames('form-group', {
-            'has-error': this.state.errors["password"]
+            'has-error': this.state.errors['password']
           })
         } >
         <
-        label className = "control-label" > Password < /label> <
-        input type = "password"
-        id = "password"
-        name = "password"
-        className = "form-control"
-        placeholder = "Password"
-        required = ""
-        autoFocus = ""
+        label className = 'control-label' > Password < /label> <
+        input type = 'password'
+        id = 'password'
+        name = 'password'
+        className = 'form-control'
+        placeholder = 'Password'
+        required = ''
+        autoFocus = ''
         onChange = {
           this.onChange
         }
-        /> {this.state.errors["password"] && <span className="help-block">{this.state.errors["password"]}</span >
+        /> {this.state.errors['password'] && <span className='help-block'>{this.state.errors['password']}</span >
       } <
       /div> <
-      button className = "btn btn-lg btn-primary btn-block btn-signin"
-    type = "submit"
+      button className = 'btn btn-lg btn-primary btn-block btn-signin'
+    type = 'submit'
     onClick = {
         this.onSubmit
       } > Sign in < /button> <
       /form> <
-      a href = "/register"
-    className = "forgot-password" >
+      a href = '/register'
+    className = 'forgot-password' >
       Forgot the password ?
       <
       /a> <

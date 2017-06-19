@@ -1,17 +1,17 @@
-"use-strict"
+'use-strict'
 
 const Binding = require('./Binding');
-const IOUserBinding = require("./IOUserBinding");
-const User = require("../models/Dataschemas").User;
-const Chatroom = require("../models/Dataschemas").Chatroom;
-const system = require("../system/SystemMessenger");
-const logger = require("../system/Logger");
+const IOUserBinding = require('./IOUserBinding');
+const User = require('../models/Dataschemas').User;
+const Chatroom = require('../models/Dataschemas').Chatroom;
+const system = require('../system/SystemMessenger');
+const logger = require('../system/Logger');
 const limit = 5;
 
 class IOBinding extends Binding {
   constructor(server) {
     super();
-    this.io = require("socket.io").listen(server);
+    this.io = require('socket.io').listen(server);
     this.users = [];
     this.chatrooms = [];
 
@@ -33,9 +33,9 @@ class IOBinding extends Binding {
       name: data.chatroom
     }, function(err, room) {
       if (data.username != username) {
-        logger.log("someone messed with his username: old->" + username + " now->" + data.username);
+        logger.log('someone messed with his username: old->' + username + ' now->' + data.username);
       } else if (err || room.length < 1) {
-        logger.log("Unavailiable Chatroom call: " + data.chatroom + " from " + username);
+        logger.log('Unavailiable Chatroom call: ' + data.chatroom + ' from ' + username);
       } else {
         room[0].history.push(data);
         console.log(data);
@@ -62,7 +62,7 @@ class IOBinding extends Binding {
       username: username
     }, function(err, user) {
       if (err || user.length < 1) {
-        logger.log("[connect] unkown user call: " + username);
+        logger.log('[connect] unkown user call: ' + username);
       } else {
         user.binding = new IOUserBinding(socket);
         that.users.push(user);
@@ -84,7 +84,7 @@ class IOBinding extends Binding {
       username: username
     }, function(err, user) {
       if (err || room.length < 1) {
-        logger.log("[disconnect] unkown user call: " + username);
+        logger.log('[disconnect] unkown user call: ' + username);
       } else {
         const index = that.users.indexOf(user);
         if (index) {
