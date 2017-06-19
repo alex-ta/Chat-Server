@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Form from '../Form/Form'
-import {signUp, exists} from '../../actions/formActions';
+import Form from '../../Form/Form'
+import {signUp, exists} from '../../../actions/formActions';
 import PropTypes from 'prop-types'
-import '../Res/register.css';
+import '../../Res/register.css';
 
 class Register extends React.Component {
   render() {

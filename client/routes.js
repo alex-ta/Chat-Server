@@ -2,10 +2,10 @@ import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
 import App from './components/App';
-import Login from './components/App/Login';
-import Register from './components/App/Register';
+import Login from './components/App/Auth/Login';
+import Register from './components/App/Auth/Register';
 import Home from './components/App/Home';
-import Api from './components/App/ChatroomApi'
+import Api from './components/App/Api/ChatroomApi'
 import requireAuth from './components/requireAuth';
 
 export default(

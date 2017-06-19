@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import logo from '../Res/Login.png';
-import '../Res/Login.css';
+import logo from '../../Res/Login.png';
+import '../../Res/Login.css';
 
-import validate from '../../../server/shared/validation';
+import validate from '../../../../server/shared/validation';
 import {connect} from 'react-redux';
-import {login} from '../../actions/authActions';
+import {login} from '../../../actions/authActions';
 import classnames from 'classnames';
 
 class Login extends Component {

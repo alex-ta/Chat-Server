@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import classnames from 'classnames';
-import {post, get, getAll, del, put} from '../../actions/formActions';
+import {post, get, getAll, del, put} from '../../../actions/formActions';
 import {connect} from 'react-redux';
 import ReactDOM from 'react-dom';
-import Form from '../Form/Form';
+import Form from '../../Form/Form';
 import PropTypes from 'prop-types';
 
 class Api extends Component {
