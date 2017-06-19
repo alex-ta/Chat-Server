@@ -42,6 +42,9 @@ auth.init(app);
 // add controllers
 mapping.init(app);
 
+//server images
+app.use(config.url.avatarUrl,express.static('./server/avatar'));
+
 if (isDevelopment) {
   const webpackMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');

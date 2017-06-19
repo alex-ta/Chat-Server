@@ -1,10 +1,16 @@
 const SystemMessage = require('./SystemMessage');
 
 class SystemMessenger {
-  constructor() {
-    this.connected = new SystemMessage('You connected to the Server');
-    this.disconnected = new SystemMessage('You diconnected from the Server');
-  }
+  connected (chatroom, user){
+		const message = new SystemMessage(user + ' connected to the Server');
+		message.chatroom = chatroom;
+		return message;
+	}
+  disconnected (chatroom, user){
+		const message = new SystemMessage(user + ' diconnected from the Server');
+		message.chatroom = chatroom;
+		return message;
+	}
 }
 
 module.exports = new SystemMessenger();

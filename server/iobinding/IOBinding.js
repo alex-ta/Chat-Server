@@ -34,39 +34,44 @@ class IOBinding extends Binding {
     }, function(err, room) {
       if (data.username != username) {
         logger.log('someone messed with his username: old->' + username + ' now->' + data.username);
-      } else if (err || room.length < 1) {
+      } else if (err || room.length != 1) {
         logger.log('Unavailiable Chatroom call: ' + data.chatroom + ' from ' + username);
       } else {
-        room[0].history.push(data);
-        console.log(data);
+		const roomObj = room[0]
+        roomObj.history.push(data);
         that.io.sockets.in(data.chatroom).emit('chat', data);
+	  Chatroom.update({_id:roomObj._id}, {history:roomObj.history}, (err)=> {
+		  logger.log("Something went woring while saving");
+		  logger.log(err);
+	  });
       }
     });
   }
 
   connectChatroom(room, user) {
-    console.log(room);
-    const length = room.history.length
+    const length = room.history.length;
+	console.log(room.history.slice(length - limit, length));
     user.binding.send(room.history.slice(length - limit, length));
-    user.binding.send(system.connected);
+    user.binding.send(system.connected(user.username, room.name));
   }
 
   disconnectChatroom(room, user) {
-    user.binding.send(system.disconnected);
+    user.binding.send(system.disconnected(user.username, room.name));
+	
   }
 
   connect(socket) {
     const username = socket.handshake.query.username;
     const that = this;
-    const user = User.find({
+    User.find({
       username: username
-    }, function(err, user) {
-      if (err || user.length < 1) {
+    }, function(err, users) {
+      if (err || users.length != 1) {
         logger.log('[connect] unkown user call: ' + username);
       } else {
+		const user = users[0];
         user.binding = new IOUserBinding(socket);
         that.users.push(user);
-        user.binding.send(system.connected);
         Chatroom.find({}, function(err, rooms) {
           rooms.forEach((room) => {
             user.binding.join(room);
@@ -89,7 +94,7 @@ class IOBinding extends Binding {
         const index = that.users.indexOf(user);
         if (index) {
           that.users.splice(index, 1);
-          user.binding.send(system.disconnected);
+          disconnectChatroom(room, user);
         }
       }
     });

@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import classnames from 'classnames';
 import {connect} from 'react-redux';
 import Chatroom from './Chatroom';
+import Sidepanel from './Sidepanel';
 import PropTypes from 'prop-types';
-
-import {getAll} from '../../actions/formActions';
+import '../Res/home.css';
 
 class Home extends Component {
 
@@ -14,26 +14,33 @@ class Home extends Component {
     this.state = {
       socket: {},
       user: this.props.auth.user,
-      chatrooms: [],
-      chatroom: ''
+      chatroom: ""
     };
 
-    this.props.getAll('chatroom').then((res) => {
-      const chatrooms = [];
-      res.data.forEach((room) => {
-        chatrooms.push(room.name);
-      });
-      this.setState({'chatrooms': chatrooms});
-    });
-
     this.onClick = this.onClick.bind(this);
+	this.getRoomHistory = this.getRoomHistory.bind(this);
+  }
+  
+  getRoomHistory(room){
+	 let currenHist = this.state[room];
+	  if(!currenHist){
+		  currenHist = [];
+	  }
+	  return currenHist;
   }
 
   componentWillMount() {
     const socket = io.connect('', {
       query: 'username=' + this.state.user.username
     });
-    this.setState({'socket': socket});
+	
+	const that = this;
+    socket.on('chat', function(data) {  
+      that.setState({
+        [data.chatroom]: that.getRoomHistory(data.chatroom).concat([data])
+      });
+    });
+	this.setState({socket:socket});
   }
 
   onClick(e) {
@@ -45,34 +52,16 @@ class Home extends Component {
     const state = this.state;
     const onClick = this.onClick;
     const room = state.chatroom;
+	const roomHist = this.getRoomHistory(room);
     return (
       <div className='chatcontainer row'>
         <div className='col-sm-8 col-md-9 sidebar'>
           {room
-            ? <Chatroom socket={state.socket} roomName={room}></Chatroom>
-            : <p>Select a Chat
-            </p>
+            ? <Chatroom socket={state.socket} roomName={room} roomHist={roomHist}></Chatroom>
+            : <p id="selectChat">Select or create a Chatroom </p>
 }
         </div>
-        <div className='col-sm-4 col-md-3 sidebar'>
-          <div className='list-group'>
-            <span href='#' className='list-group-item active'>
-              Submenu
-              <span className='pull-right' id='slide-submenu'>
-                <i className='fa fa-times'></i>
-              </span>
-            </span>
-            {state.chatrooms.map((roomName, count) => {
-              console.log(roomName);
-              return (
-                <button onClick={onClick} name={roomName} id={roomName} key={count} className='list-group-item'>
-                  {roomName}
-                </button>
-              )
-            })
-}
-          </div>
-        </div>
+        <Sidepanel onClick={onClick}/>
       </div>
     );
   }
@@ -86,4 +75,4 @@ function mapStateToProps(state) {
   return {auth: state.auth};
 }
 
-export default connect(mapStateToProps, {getAll})(Home);
+export default connect(mapStateToProps, {} )(Home);

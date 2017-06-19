@@ -3,12 +3,13 @@ import {connect} from 'react-redux';
 import Form from '../Form/Form'
 import {signUp, exists} from '../../actions/formActions';
 import PropTypes from 'prop-types'
+import '../Res/register.css';
 
 class Register extends React.Component {
   render() {
     const {signUp, exists} = this.props;
     return (
-      <div className='row'>
+      <div className='form-signin'>
         <div className='col-md-4 col-md-offset-4'>
           <Form fields={['username', 'password', 'passwordConfirm']} buttonText='Sign Up' signFunction={signUp} blurdata={{
             'username': exists

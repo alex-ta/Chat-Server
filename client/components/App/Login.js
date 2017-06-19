@@ -127,13 +127,8 @@ class Login extends Component {
     onClick = {
         this.onSubmit
       } > Sign in < /button> <
-      /form> <
-      a href = '/register'
-    className = 'forgot-password' >
-      Forgot the password ?
-      <
-      /a> <
-      /div>
+      /form>
+      </div>
   );
 }
 }
