@@ -5,13 +5,16 @@
 This NodeJS Backend and React Frontend (Single Page App).
 Webapp that enables multiple Chatrooms and the posibillity to link Chatbots.
 
-![Alt text](readme/SignUp.png?raw=true "SignUp")
-![Alt text](readme/L.png?raw=true "Login")
-![Alt text](readme/Chat.png?raw=true "Login")
+![image](readme/SignUp.png?raw=true "SignUp")
+![image](readme/Login.png?raw=true "Login")
+![image](readme/Chat.png?raw=true "Login")
 
 ## Development Setup
 
-(Install NodeJS 6.1)[<https://nodejs.org/en/download/>] (Install NPM 3.1)[<https://nodejs.org/en/download/>] (Install MongoDB 3.4.4)[<https://www.mongodb.com/download-center?jmp=nav>] (start mongod)[<https://stackoverflow.com/questions/20796714/how-do-i-start-mongo-db-from-windows>]
+- [Install NodeJS 6.1](https://nodejs.org/en/download/)
+- [Install NPM 3.1](https://nodejs.org/en/download/) 
+- [Install MongoDB 3.4.4](https://www.mongodb.com/download-center?jmp=nav)
+- [start mongod](https://stackoverflow.com/questions/20796714/how-do-i-start-mongo-db-from-windows)
 
 change to app root folder and run:
 
