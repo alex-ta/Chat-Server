@@ -31849,7 +31849,7 @@
 
 	var _ChatroomApi2 = _interopRequireDefault(_ChatroomApi);
 
-	var _requireAuth = __webpack_require__(517);
+	var _requireAuth = __webpack_require__(519);
 
 	var _requireAuth2 = _interopRequireDefault(_requireAuth);
 
@@ -39656,6 +39656,8 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
+	__webpack_require__(517);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39829,11 +39831,12 @@
 	        _react2.default.createElement('div', { className: 'col-sm-10 col-md-10 sidebar' }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-2 col-md-2 sidebar' },
+	          { className: 'col-sm-12 col-md-12 sidebar' },
 	          _react2.default.createElement(
 	            'button',
 	            { onClick: onClick, name: 'create', id: 'create', value: 'create', className: 'list-group-item' },
-	            'Create'
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-plus' }),
+	            'Create a new Chatroom'
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -39856,7 +39859,7 @@
 	                _react2.default.createElement(
 	                  'h4',
 	                  { className: 'modal-title' },
-	                  'Modal Header'
+	                  'Chatroom'
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -39879,10 +39882,10 @@
 	        state.collection.map(function (data, count) {
 	          return _react2.default.createElement(
 	            'div',
-	            { key: count },
+	            { className: 'chatroomlist', key: count },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'col-sm-8 col-md-8 sidebar' },
+	              { className: 'col-sm-8 col-md-8 sidebar chatroomlist' },
 	              _react2.default.createElement(
 	                'h4',
 	                null,
@@ -39895,6 +39898,7 @@
 	              _react2.default.createElement(
 	                'button',
 	                { onClick: onClick, name: 'edit', id: data.name, value: data._id, className: 'list-group-item' },
+	                _react2.default.createElement('span', { className: 'glyphicon glyphicon-wrench' }),
 	                'Edit'
 	              )
 	            ),
@@ -39904,6 +39908,7 @@
 	              _react2.default.createElement(
 	                'button',
 	                { onClick: onClick, name: 'delete', id: data.name, value: data._id, className: 'list-group-item' },
+	                _react2.default.createElement('span', { className: 'glyphicon glyphicon-trash' }),
 	                'Delete'
 	              )
 	            )
@@ -39928,6 +39933,51 @@
 
 /***/ }),
 /* 517 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(518);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// Prepare cssTransformation
+	var transform;
+
+	var options = {"a":1}
+	options.transform = transform
+	// add the styles to the DOM
+	var update = __webpack_require__(342)(content, options);
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"b\":2}!./chatroomapi.css", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js?{\"b\":2}!./chatroomapi.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 518 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(341)(undefined);
+	// imports
+
+
+	// module
+	exports.push([module.id, "#create {\r\n  text-align: center;\r\n}\r\n\r\n.col-md-8 {\r\n  border-style: groove;\r\n}\r\n\r\n.chatroomlist {\r\n  margin: 16px;\r\n}\r\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 519 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';

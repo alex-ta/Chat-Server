@@ -1,0 +1,11 @@
+#create {
+  text-align: center;
+}
+
+.col-md-8 {
+  border-style: groove;
+}
+
+.chatroomlist {
+  margin: 16px;
+}

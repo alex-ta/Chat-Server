@@ -89,8 +89,10 @@ class Api extends Component {
       <div className='data row'>
 
         <div className='col-sm-10 col-md-10 sidebar'></div>
-        <div className='col-sm-2 col-md-2 sidebar'>
-          <button onClick={onClick} name='create' id='create' value='create' className='list-group-item'>Create</button>
+        <div className='col-sm-12 col-md-12 sidebar'>
+          <button onClick={onClick} name="create" id="create" value="create" className="list-group-item">
+            <span className="glyphicon glyphicon-plus"></span>
+            Create a new Chatroom</button>
         </div>
 
         <div className='modal fade' ref='data_dialog' id='data_dialog' role='dialog'>
@@ -98,7 +100,7 @@ class Api extends Component {
             <div className='modal-content'>
               <div className='modal-header'>
                 <button type='button' className='close' data-dismiss='modal'>&times;</button>
-                <h4 className='modal-title'>Modal Header</h4>
+                <h4 className='modal-title'>Chatroom</h4>
               </div>
               <div className='modal-body'>
                 {(state.objKeys.length > 0)
@@ -114,18 +116,20 @@ class Api extends Component {
 
         {state.collection.map((data, count) => {
           return (
-            <div key={count}>
-              <div className='col-sm-8 col-md-8 sidebar'>
+            <div className="chatroomlist" key={count}>
+              <div className="col-sm-8 col-md-8 sidebar chatroomlist">
                 <h4>
                   {data.name}
                 </h4>
               </div>
-              <div className='col-sm-2 col-md-2 sidebar'>
-                <button onClick={onClick} name='edit' id={data.name} value={data._id} className='list-group-item'>
+              <div className="col-sm-2 col-md-2 sidebar">
+                <button onClick={onClick} name="edit" id={data.name} value={data._id} className="list-group-item">
+                  <span className="glyphicon glyphicon-wrench"></span>
                   Edit</button>
               </div>
-              <div className='col-sm-2 col-md-2 sidebar'>
-                <button onClick={onClick} name='delete' id={data.name} value={data._id} className='list-group-item'>
+              <div className="col-sm-2 col-md-2 sidebar">
+                <button onClick={onClick} name="delete" id={data.name} value={data._id} className="list-group-item">
+                  <span className="glyphicon glyphicon-trash"></span>
                   Delete</button>
               </div>
             </div>

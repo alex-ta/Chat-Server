@@ -4,6 +4,7 @@ import React, {
 import ReactDOM from 'react-dom';
 import Api from './Api';
 import PropTypes from 'prop-types';
+import '../../Res/chatroomapi.css';
 
 class ChatroomApi extends Component {
 
